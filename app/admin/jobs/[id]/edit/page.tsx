@@ -1,7 +1,6 @@
 "use client"
 
 import type React from "react"
-
 import { useState } from "react"
 import Link from "next/link"
 import { ArrowLeft, Bell, Calendar, Plus, Trash } from "lucide-react"
@@ -16,10 +15,58 @@ import { Switch } from "@/components/ui/switch"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Separator } from "@/components/ui/separator"
 import { toast } from "@/components/ui/use-toast"
+import { useParams } from "next/navigation"
 
-export default function NewJobPage() {
+interface EditJobPageProps {
+  params: {
+    id: string
+  }
+}
+
+export default function EditJobPage({ params }: EditJobPageProps) {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [jobStatus, setJobStatus] = useState("draft")
+
+  // This would normally fetch the job data from an API
+  const job = {
+    id: params?.id || "",
+    title: "Bank PO",
+    department: "Banking",
+    location: "All India",
+    postedDate: "2023-04-01",
+    lastDate: "2023-05-15",
+    status: "Active",
+    applications: "1,245",
+    description: "Join as a Probationary Officer in leading banks across India...",
+    requirements: [
+      "Bachelor's degree with minimum 60%",
+      "Age limit: 21-30 years",
+      "Indian citizenship",
+    ],
+    salary: "₹40,000 - ₹60,000 per month",
+    vacancies: 1500,
+    qualification: "Graduate from any recognized University",
+    experience: "No prior experience required",
+    ageLimit: "21-30 years",
+    selectionProcess: "Prelims, Mains, Interview",
+  }
+
+  if (!job.id) {
+    return (
+      <div className="flex min-h-screen flex-col">
+        <div className="container py-6">
+          <div className="text-center">
+            <h1 className="text-2xl font-bold">Job Not Found</h1>
+            <p className="text-muted-foreground">The job you are looking for does not exist.</p>
+            <Link href="/admin/jobs" className="mt-4 inline-flex items-center text-sm font-medium text-red-600">
+              <ArrowLeft className="mr-1 h-4 w-4" />
+              Back to Jobs
+            </Link>
+          </div>
+        </div>
+      </div>
+    )
+  }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -29,8 +76,8 @@ export default function NewJobPage() {
     await new Promise((resolve) => setTimeout(resolve, 1500))
 
     toast({
-      title: "Job created successfully",
-      description: "The job has been created and is now live.",
+      title: "Job updated successfully",
+      description: "The job has been updated and changes are now live.",
     })
 
     setIsSubmitting(false)
@@ -41,12 +88,12 @@ export default function NewJobPage() {
       <main className="flex-1 overflow-auto">
         <div className="container py-4">
           <div className="mb-4">
-            <Link href="/admin/jobs" className="inline-flex items-center text-sm font-medium text-red-600">
+            <Link href={`/admin/jobs/${job.id}`} className="inline-flex items-center text-sm font-medium text-red-600">
               <ArrowLeft className="mr-1 h-4 w-4" />
-              Back to Jobs
+              Back to Job Details
             </Link>
-            <h1 className="text-3xl font-bold tracking-tight mt-2">Add New Job</h1>
-            <p className="text-muted-foreground">Create a new job posting</p>
+            <h1 className="text-3xl font-bold tracking-tight mt-2">Edit Job</h1>
+            <p className="text-muted-foreground">Update the job posting details</p>
           </div>
 
           <form onSubmit={handleSubmit}>
@@ -55,30 +102,30 @@ export default function NewJobPage() {
                 <Card>
                   <CardHeader>
                     <CardTitle>Basic Information</CardTitle>
-                    <CardDescription>Enter the basic details of the job posting</CardDescription>
+                    <CardDescription>Update the basic details of the job posting</CardDescription>
                   </CardHeader>
                   <CardContent className="space-y-4">
                     <div className="space-y-2">
                       <Label htmlFor="title">Job Title</Label>
-                      <Input id="title" placeholder="e.g., UPSC Civil Services 2025" required />
+                      <Input id="title" defaultValue={job.title} placeholder="e.g., UPSC Civil Services 2025" required />
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       <div className="space-y-2">
                         <Label htmlFor="department">Department</Label>
-                        <Input id="department" placeholder="e.g., Union Public Service Commission" required />
+                        <Input id="department" defaultValue={job.department} placeholder="e.g., Union Public Service Commission" required />
                       </div>
 
                       <div className="space-y-2">
                         <Label htmlFor="location">Location</Label>
-                        <Input id="location" placeholder="e.g., All India" required />
+                        <Input id="location" defaultValue={job.location} placeholder="e.g., All India" required />
                       </div>
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       <div className="space-y-2">
                         <Label htmlFor="vacancies">Number of Vacancies</Label>
-                        <Input id="vacancies" type="number" placeholder="e.g., 1200" required />
+                        <Input id="vacancies" type="number" defaultValue={job.vacancies} placeholder="e.g., 1200" required />
                       </div>
 
                       <div className="space-y-2">
@@ -100,6 +147,7 @@ export default function NewJobPage() {
                       <Label htmlFor="description">Job Description</Label>
                       <Textarea
                         id="description"
+                        defaultValue={job.description}
                         placeholder="Enter detailed job description..."
                         className="min-h-[150px]"
                         required
@@ -111,7 +159,7 @@ export default function NewJobPage() {
                 <Card>
                   <CardHeader>
                     <CardTitle>Eligibility & Requirements</CardTitle>
-                    <CardDescription>Specify the eligibility criteria and requirements</CardDescription>
+                    <CardDescription>Update the eligibility criteria and requirements</CardDescription>
                   </CardHeader>
                   <CardContent className="space-y-4">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -153,12 +201,12 @@ export default function NewJobPage() {
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       <div className="space-y-2">
                         <Label htmlFor="age-min">Minimum Age (Years)</Label>
-                        <Input id="age-min" type="number" placeholder="e.g., 21" required />
+                        <Input id="age-min" type="number" defaultValue={21} placeholder="e.g., 21" required />
                       </div>
 
                       <div className="space-y-2">
                         <Label htmlFor="age-max">Maximum Age (Years)</Label>
-                        <Input id="age-max" type="number" placeholder="e.g., 32" required />
+                        <Input id="age-max" type="number" defaultValue={30} placeholder="e.g., 32" required />
                       </div>
                     </div>
 
@@ -166,6 +214,7 @@ export default function NewJobPage() {
                       <Label htmlFor="requirements">Additional Requirements</Label>
                       <Textarea
                         id="requirements"
+                        defaultValue={job.requirements.join("\n")}
                         placeholder="Enter any additional requirements or skills needed..."
                         className="min-h-[100px]"
                       />
@@ -176,18 +225,18 @@ export default function NewJobPage() {
                 <Card>
                   <CardHeader>
                     <CardTitle>Application Details</CardTitle>
-                    <CardDescription>Set application dates and fees</CardDescription>
+                    <CardDescription>Update application dates and fees</CardDescription>
                   </CardHeader>
                   <CardContent className="space-y-4">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       <div className="space-y-2">
                         <Label htmlFor="start-date">Application Start Date</Label>
-                        <Input id="start-date" type="date" required />
+                        <Input id="start-date" type="date" defaultValue={job.postedDate} required />
                       </div>
 
                       <div className="space-y-2">
                         <Label htmlFor="end-date">Application End Date</Label>
-                        <Input id="end-date" type="date" required />
+                        <Input id="end-date" type="date" defaultValue={job.lastDate} required />
                       </div>
                     </div>
 
@@ -219,13 +268,8 @@ export default function NewJobPage() {
                         </div>
 
                         <div className="grid grid-cols-2 gap-4 items-center">
-                          <Label htmlFor="fee-sc">SC</Label>
+                          <Label htmlFor="fee-sc">SC/ST</Label>
                           <Input id="fee-sc" type="number" placeholder="e.g., 0" required />
-                        </div>
-
-                        <div className="grid grid-cols-2 gap-4 items-center">
-                          <Label htmlFor="fee-st">ST</Label>
-                          <Input id="fee-st" type="number" placeholder="e.g., 0" required />
                         </div>
 
                         <div className="grid grid-cols-2 gap-4 items-center">
@@ -240,7 +284,7 @@ export default function NewJobPage() {
                 <Card>
                   <CardHeader>
                     <CardTitle>Selection Process</CardTitle>
-                    <CardDescription>Define the selection process stages</CardDescription>
+                    <CardDescription>Update the selection process stages</CardDescription>
                   </CardHeader>
                   <CardContent>
                     <div className="space-y-4">
@@ -251,7 +295,7 @@ export default function NewJobPage() {
                         </Button>
                       </div>
 
-                      {["Prelims", "Mains", "Interview"].map((stage, index) => (
+                      {job.selectionProcess.split(", ").map((stage, index) => (
                         <div key={index} className="flex items-center gap-4 p-3 border rounded-lg">
                           <div className="flex items-center justify-center h-8 w-8 rounded-full bg-muted text-sm font-medium">
                             {index + 1}
@@ -276,7 +320,7 @@ export default function NewJobPage() {
                 <Card>
                   <CardHeader>
                     <CardTitle>Documents Required</CardTitle>
-                    <CardDescription>Specify the documents required for application</CardDescription>
+                    <CardDescription>Update the documents required for application</CardDescription>
                   </CardHeader>
                   <CardContent>
                     <div className="space-y-4">
@@ -319,38 +363,27 @@ export default function NewJobPage() {
                 <Card>
                   <CardHeader>
                     <CardTitle>Job Status</CardTitle>
-                    <CardDescription>Control the visibility of this job</CardDescription>
+                    <CardDescription>Manage the job posting status</CardDescription>
                   </CardHeader>
-                  <CardContent>
-                    <RadioGroup defaultValue="draft" onValueChange={setJobStatus}>
-                      <div className="flex items-center space-x-2 space-y-0">
-                        <RadioGroupItem value="draft" id="draft" />
-                        <Label htmlFor="draft">Draft</Label>
-                      </div>
-                      <div className="flex items-center space-x-2 space-y-0">
-                        <RadioGroupItem value="published" id="published" />
-                        <Label htmlFor="published">Published</Label>
-                      </div>
-                      <div className="flex items-center space-x-2 space-y-0">
-                        <RadioGroupItem value="archived" id="archived" />
-                        <Label htmlFor="archived">Archived</Label>
-                      </div>
-                    </RadioGroup>
-
-                    <div className="mt-4 text-sm text-muted-foreground">
-                      {jobStatus === "draft" && "This job will be saved but not visible to users."}
-                      {jobStatus === "published" && "This job will be visible to all users."}
-                      {jobStatus === "archived" && "This job will be archived and not visible to users."}
+                  <CardContent className="space-y-4">
+                    <div className="space-y-2">
+                      <Label>Current Status</Label>
+                      <RadioGroup defaultValue={job.status.toLowerCase()} onValueChange={setJobStatus}>
+                        <div className="flex items-center space-x-2">
+                          <RadioGroupItem value="draft" id="draft" />
+                          <Label htmlFor="draft">Draft</Label>
+                        </div>
+                        <div className="flex items-center space-x-2">
+                          <RadioGroupItem value="active" id="active" />
+                          <Label htmlFor="active">Active</Label>
+                        </div>
+                        <div className="flex items-center space-x-2">
+                          <RadioGroupItem value="closed" id="closed" />
+                          <Label htmlFor="closed">Closed</Label>
+                        </div>
+                      </RadioGroup>
                     </div>
-                  </CardContent>
-                </Card>
 
-                <Card>
-                  <CardHeader>
-                    <CardTitle>Featured Job</CardTitle>
-                    <CardDescription>Make this job stand out</CardDescription>
-                  </CardHeader>
-                  <CardContent>
                     <div className="space-y-2">
                       <Label>Visibility</Label>
                       <div className="flex items-center justify-between">
@@ -366,64 +399,25 @@ export default function NewJobPage() {
                         <Switch id="sliding-news" />
                       </div>
                     </div>
-                    <p className="mt-2 text-sm text-muted-foreground">
-                      Featured jobs appear at the top of search results and on the homepage.
-                    </p>
                   </CardContent>
                 </Card>
 
                 <Card>
                   <CardHeader>
-                    <CardTitle>Notification Settings</CardTitle>
-                    <CardDescription>Control how users are notified</CardDescription>
+                    <CardTitle>Actions</CardTitle>
                   </CardHeader>
                   <CardContent className="space-y-4">
-                    <div className="flex items-center space-x-2">
-                      <Switch id="email-notification" defaultChecked />
-                      <Label htmlFor="email-notification">Send Email Notification</Label>
-                    </div>
-                    <div className="flex items-center space-x-2">
-                      <Switch id="sms-notification" />
-                      <Label htmlFor="sms-notification">Send SMS Notification</Label>
-                    </div>
-                    <div className="flex items-center space-x-2">
-                      <Switch id="push-notification" defaultChecked />
-                      <Label htmlFor="push-notification">Send Push Notification</Label>
-                    </div>
+                    <Button type="submit" className="w-full bg-red-600 hover:bg-red-700" disabled={isSubmitting}>
+                      {isSubmitting ? "Saving Changes..." : "Save Changes"}
+                    </Button>
+                    <Button type="button" variant="outline" className="w-full">
+                      Preview Changes
+                    </Button>
+                    <Button type="button" variant="destructive" className="w-full">
+                      Delete Job
+                    </Button>
                   </CardContent>
                 </Card>
-
-                <Card>
-                  <CardHeader>
-                    <CardTitle>Publish Settings</CardTitle>
-                  </CardHeader>
-                  <CardContent className="space-y-4">
-                    <div className="space-y-2">
-                      <Label htmlFor="publish-date">Publish Date</Label>
-                      <div className="flex items-center gap-2">
-                        <Calendar className="h-4 w-4 text-muted-foreground" />
-                        <Input id="publish-date" type="date" />
-                      </div>
-                    </div>
-
-                    <div className="space-y-2">
-                      <Label htmlFor="publish-time">Publish Time</Label>
-                      <Input id="publish-time" type="time" />
-                    </div>
-                  </CardContent>
-                </Card>
-
-                <div className="flex flex-col gap-2">
-                  <Button type="submit" className="bg-red-600 hover:bg-red-700" disabled={isSubmitting}>
-                    {isSubmitting ? "Creating..." : "Create Job"}
-                  </Button>
-                  <Button type="button" variant="outline">
-                    Save as Draft
-                  </Button>
-                  <Button type="button" variant="ghost" className="text-muted-foreground">
-                    Cancel
-                  </Button>
-                </div>
               </div>
             </div>
           </form>
@@ -431,5 +425,4 @@ export default function NewJobPage() {
       </main>
     </div>
   )
-}
-
+} 

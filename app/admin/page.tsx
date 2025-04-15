@@ -1,186 +1,107 @@
-import Link from "next/link"
 import {
   BarChart,
-  Bell,
-  Calendar,
   FileText,
-  Home,
   LineChart,
   PieChart,
   Plus,
-  Settings,
+  Search,
   Users,
   Briefcase,
   ArrowUp,
   ArrowDown,
   ArrowRight,
-  Search,
+  Bell,
+  Calendar,
+  CheckCircle2,
+  Clock,
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { Badge } from "@/components/ui/badge"
 import { Input } from "@/components/ui/input"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { Badge } from "@/components/ui/badge"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import Link from "next/link"
 
 export default function AdminDashboardPage() {
   return (
-    <div className="flex min-h-screen flex-col">
-      <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-        <div className="container flex h-16 items-center justify-between">
-          <div className="flex items-center gap-2">
-            <Link href="/admin" className="flex items-center">
-              <span className="text-xl font-bold text-red-600">Rojgaar</span>
-              <span className="text-xl font-bold">Yatra</span>
-              <span className="text-xl font-bold text-red-600">.com</span>
-              <Badge className="ml-2" variant="outline">
-                Admin
-              </Badge>
-            </Link>
+    <div className="px-3 -mt-3">
+      <div className="mb-4">
+        <h1 className="text-2xl font-bold tracking-tight">Admin Dashboard</h1>
+        <p className="text-sm text-muted-foreground">Welcome back, Admin. Here's what's happening today.</p>
           </div>
 
-          <div className="flex items-center gap-4">
-            <Button variant="ghost" size="icon" className="relative">
-              <Bell className="h-5 w-5" />
-              <span className="absolute top-0 right-0 h-2 w-2 rounded-full bg-red-600"></span>
-            </Button>
-
-            <div className="flex items-center gap-2">
-              <Avatar>
-                <AvatarImage src="/placeholder.svg?height=32&width=32" alt="Admin" />
-                <AvatarFallback>AD</AvatarFallback>
-              </Avatar>
-              <div className="hidden md:block">
-                <p className="text-sm font-medium">Admin User</p>
-                <p className="text-xs text-muted-foreground">admin@rojgaaryatra.com</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </header>
-
-      <div className="flex flex-1">
-        {/* Sidebar */}
-        <aside className="hidden md:flex w-64 flex-col border-r bg-muted/30">
-          <div className="flex flex-col gap-1 p-4">
-            <Link href="/admin" className="flex items-center gap-2 rounded-lg bg-muted px-3 py-2 text-sm font-medium">
-              <Home className="h-4 w-4" />
-              Dashboard
-            </Link>
-            <Link
-              href="/admin/jobs"
-              className="flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium hover:bg-muted"
-            >
-              <Briefcase className="h-4 w-4" />
-              Manage Jobs
-            </Link>
-            <Link
-              href="/admin/results"
-              className="flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium hover:bg-muted"
-            >
-              <FileText className="h-4 w-4" />
-              Upload Results
-            </Link>
-            <Link
-              href="/admin/admit-cards"
-              className="flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium hover:bg-muted"
-            >
-              <Calendar className="h-4 w-4" />
-              Admit Cards
-            </Link>
-            <Link
-              href="/admin/users"
-              className="flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium hover:bg-muted"
-            >
-              <Users className="h-4 w-4" />
-              Manage Users
-            </Link>
-            <Link
-              href="/admin/settings"
-              className="flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium hover:bg-muted"
-            >
-              <Settings className="h-4 w-4" />
-              Settings
-            </Link>
-          </div>
-        </aside>
-
-        {/* Main Content */}
-        <main className="flex-1 overflow-auto">
-          <div className="container py-6">
-            <div className="mb-8">
-              <h1 className="text-3xl font-bold tracking-tight">Admin Dashboard</h1>
-              <p className="text-muted-foreground">Welcome back, Admin. Here's what's happening today.</p>
-            </div>
-
-            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-              <Card>
-                <CardContent className="p-6">
+      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+        <Card className="border shadow-sm hover:shadow-md transition-shadow">
+          <CardContent className="p-4">
                   <div className="flex items-center justify-between">
                     <div>
                       <p className="text-sm font-medium text-muted-foreground">Total Users</p>
-                      <p className="text-3xl font-bold">1,250,000</p>
+                <p className="text-2xl font-bold mt-0.5">1,250,000</p>
                     </div>
-                    <div className="h-12 w-12 rounded-full bg-muted flex items-center justify-center">
-                      <Users className="h-6 w-6 text-muted-foreground" />
+              <div className="h-10 w-10 rounded-lg bg-red-50 flex items-center justify-center">
+                <Users className="h-5 w-5 text-red-600" />
                     </div>
                   </div>
-                  <div className="mt-4 flex items-center text-sm">
-                    <ArrowUp className="mr-1 h-4 w-4 text-green-500" />
+            <div className="mt-3 flex items-center text-xs">
+              <ArrowUp className="mr-1 h-3 w-3 text-green-500" />
                     <span className="text-green-500 font-medium">12%</span>
                     <span className="ml-1 text-muted-foreground">from last month</span>
                   </div>
                 </CardContent>
               </Card>
-              <Card>
-                <CardContent className="p-6">
+
+        <Card className="border shadow-sm hover:shadow-md transition-shadow">
+          <CardContent className="p-4">
                   <div className="flex items-center justify-between">
                     <div>
                       <p className="text-sm font-medium text-muted-foreground">Active Jobs</p>
-                      <p className="text-3xl font-bold">1,543</p>
+                <p className="text-2xl font-bold mt-0.5">1,543</p>
                     </div>
-                    <div className="h-12 w-12 rounded-full bg-muted flex items-center justify-center">
-                      <Briefcase className="h-6 w-6 text-muted-foreground" />
+              <div className="h-10 w-10 rounded-lg bg-blue-50 flex items-center justify-center">
+                <Briefcase className="h-5 w-5 text-blue-600" />
                     </div>
                   </div>
-                  <div className="mt-4 flex items-center text-sm">
-                    <ArrowUp className="mr-1 h-4 w-4 text-green-500" />
+            <div className="mt-3 flex items-center text-xs">
+              <ArrowUp className="mr-1 h-3 w-3 text-green-500" />
                     <span className="text-green-500 font-medium">8%</span>
                     <span className="ml-1 text-muted-foreground">from last month</span>
                   </div>
                 </CardContent>
               </Card>
-              <Card>
-                <CardContent className="p-6">
+
+        <Card className="border shadow-sm hover:shadow-md transition-shadow">
+          <CardContent className="p-4">
                   <div className="flex items-center justify-between">
                     <div>
                       <p className="text-sm font-medium text-muted-foreground">Applications</p>
-                      <p className="text-3xl font-bold">245,678</p>
+                <p className="text-2xl font-bold mt-0.5">245,678</p>
                     </div>
-                    <div className="h-12 w-12 rounded-full bg-muted flex items-center justify-center">
-                      <FileText className="h-6 w-6 text-muted-foreground" />
+              <div className="h-10 w-10 rounded-lg bg-green-50 flex items-center justify-center">
+                <FileText className="h-5 w-5 text-green-600" />
                     </div>
                   </div>
-                  <div className="mt-4 flex items-center text-sm">
-                    <ArrowUp className="mr-1 h-4 w-4 text-green-500" />
+            <div className="mt-3 flex items-center text-xs">
+              <ArrowUp className="mr-1 h-3 w-3 text-green-500" />
                     <span className="text-green-500 font-medium">24%</span>
                     <span className="ml-1 text-muted-foreground">from last month</span>
                   </div>
                 </CardContent>
               </Card>
-              <Card>
-                <CardContent className="p-6">
+
+        <Card className="border shadow-sm hover:shadow-md transition-shadow">
+          <CardContent className="p-4">
                   <div className="flex items-center justify-between">
                     <div>
                       <p className="text-sm font-medium text-muted-foreground">Revenue</p>
-                      <p className="text-3xl font-bold">₹12.5M</p>
+                <p className="text-2xl font-bold mt-0.5">₹12.5M</p>
                     </div>
-                    <div className="h-12 w-12 rounded-full bg-muted flex items-center justify-center">
-                      <LineChart className="h-6 w-6 text-muted-foreground" />
+              <div className="h-10 w-10 rounded-lg bg-purple-50 flex items-center justify-center">
+                <LineChart className="h-5 w-5 text-purple-600" />
                     </div>
                   </div>
-                  <div className="mt-4 flex items-center text-sm">
-                    <ArrowDown className="mr-1 h-4 w-4 text-red-500" />
+            <div className="mt-3 flex items-center text-xs">
+              <ArrowDown className="mr-1 h-3 w-3 text-red-500" />
                     <span className="text-red-500 font-medium">3%</span>
                     <span className="ml-1 text-muted-foreground">from last month</span>
                   </div>
@@ -188,44 +109,124 @@ export default function AdminDashboardPage() {
               </Card>
             </div>
 
-            <div className="mt-8 grid gap-6 md:grid-cols-7">
-              <Card className="md:col-span-4">
-                <CardHeader className="flex flex-row items-center justify-between">
+      <div className="grid gap-4 mt-4 md:grid-cols-12">
+        <Card className="md:col-span-8 border shadow-sm">
+          <CardHeader className="flex flex-row items-center justify-between pb-2">
                   <div>
-                    <CardTitle>Applications Overview</CardTitle>
-                    <CardDescription>Daily application submissions</CardDescription>
+              <CardTitle className="text-base">Upcoming Deadlines</CardTitle>
+              <CardDescription>Job applications closing soon</CardDescription>
                   </div>
-                  <div>
-                    <Button variant="outline" size="sm">
-                      View Report
+            <Button variant="ghost" size="sm" className="text-xs">
+              View All
                     </Button>
-                  </div>
                 </CardHeader>
                 <CardContent>
-                  <div className="h-[300px] flex items-center justify-center bg-muted/50 rounded-lg">
-                    <BarChart className="h-16 w-16 text-muted-foreground" />
-                    <span className="ml-2 text-muted-foreground">Applications Chart</span>
+            <div className="space-y-3">
+              {[
+                {
+                  title: "UPSC Civil Services 2025",
+                  date: "15 Apr 2025",
+                  applicants: 45892,
+                  urgent: true,
+                },
+                {
+                  title: "SSC CGL 2025",
+                  date: "30 Mar 2025",
+                  applicants: 28567,
+                  urgent: false,
+                },
+                {
+                  title: "IBPS PO 2025",
+                  date: "20 May 2025",
+                  applicants: 15234,
+                  urgent: false,
+                },
+              ].map((item) => (
+                <div key={item.title} className="flex items-center justify-between p-3 rounded-lg border bg-card hover:bg-accent/5 transition-colors">
+                  <div className="flex items-center gap-3">
+                    <div className={`h-9 w-9 rounded-lg ${item.urgent ? 'bg-red-50' : 'bg-blue-50'} flex items-center justify-center`}>
+                      <Calendar className={`h-5 w-5 ${item.urgent ? 'text-red-600' : 'text-blue-600'}`} />
+                    </div>
+                    <div>
+                      <p className="font-medium text-sm">{item.title}</p>
+                      <div className="flex items-center gap-2 mt-0.5">
+                        <div className="flex items-center text-xs text-muted-foreground">
+                          <Clock className="h-3 w-3 mr-1" />
+                          {item.date}
+                        </div>
+                        <div className="flex items-center text-xs text-muted-foreground">
+                          <Users className="h-3 w-3 mr-1" />
+                          {item.applicants.toLocaleString()} applicants
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <Badge variant={item.urgent ? "destructive" : "secondary"} className="text-xs">
+                    {item.urgent ? 'Urgent' : 'Upcoming'}
+                  </Badge>
+                </div>
+              ))}
                   </div>
                 </CardContent>
               </Card>
 
-              <Card className="md:col-span-3">
-                <CardHeader>
-                  <CardTitle>User Distribution</CardTitle>
-                  <CardDescription>User categories and demographics</CardDescription>
+        <Card className="md:col-span-4 border shadow-sm">
+          <CardHeader className="flex flex-row items-center justify-between pb-2">
+            <div>
+              <CardTitle className="text-base">Recent Activities</CardTitle>
+              <CardDescription>Latest system updates</CardDescription>
+            </div>
+            <Button variant="ghost" size="sm" className="text-xs">
+              View All
+            </Button>
                 </CardHeader>
                 <CardContent>
-                  <div className="h-[300px] flex items-center justify-center bg-muted/50 rounded-lg">
-                    <PieChart className="h-16 w-16 text-muted-foreground" />
-                    <span className="ml-2 text-muted-foreground">User Distribution Chart</span>
+            <div className="space-y-3">
+              {[
+                {
+                  title: "New job posted",
+                  description: "UPSC Civil Services 2025 has been published",
+                  time: "2 hours ago",
+                  icon: Plus,
+                  color: "text-green-600",
+                  bg: "bg-green-50",
+                },
+                {
+                  title: "Application approved",
+                  description: "Rahul Sharma's application was approved",
+                  time: "4 hours ago",
+                  icon: CheckCircle2,
+                  color: "text-blue-600",
+                  bg: "bg-blue-50",
+                },
+                {
+                  title: "System notification",
+                  description: "Monthly analytics report is ready",
+                  time: "6 hours ago",
+                  icon: Bell,
+                  color: "text-yellow-600",
+                  bg: "bg-yellow-50",
+                },
+              ].map((item) => (
+                <div key={item.title} className="flex gap-3">
+                  <div className={`h-8 w-8 rounded-lg ${item.bg} flex items-center justify-center flex-shrink-0`}>
+                    <item.icon className={`h-4 w-4 ${item.color}`} />
+                  </div>
+                  <div>
+                    <p className="text-sm font-medium">{item.title}</p>
+                    <p className="text-xs text-muted-foreground">{item.description}</p>
+                    <p className="text-xs text-muted-foreground mt-0.5">{item.time}</p>
+                  </div>
+                </div>
+              ))}
                   </div>
                 </CardContent>
               </Card>
             </div>
 
-            <div className="mt-8">
-              <Tabs defaultValue="recent-jobs">
-                <TabsList className="mb-4">
+      <div className="mt-4">
+        <Tabs defaultValue="recent-jobs" className="space-y-4">
+          <TabsList>
                   <TabsTrigger value="recent-jobs">Recent Jobs</TabsTrigger>
                   <TabsTrigger value="recent-applications">Recent Applications</TabsTrigger>
                   <TabsTrigger value="recent-users">Recent Users</TabsTrigger>
@@ -483,9 +484,6 @@ export default function AdminDashboardPage() {
                   </Card>
                 </TabsContent>
               </Tabs>
-            </div>
-          </div>
-        </main>
       </div>
     </div>
   )

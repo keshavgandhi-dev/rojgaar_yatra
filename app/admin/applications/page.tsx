@@ -1,165 +1,192 @@
+"use client"
+
 import Link from "next/link"
-import { Filter, Search, Download } from "lucide-react"
+import { Filter, Search, Download, Calendar, User, Briefcase, Mail, Clock, FileText, XCircle, MapPin, Phone, MoreVertical, RefreshCw, Users } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import { Card, CardContent } from "@/components/ui/card"
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Input } from "@/components/ui/input"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { Progress } from "@/components/ui/progress"
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger, DropdownMenuLabel, DropdownMenuSeparator } from "@/components/ui/dropdown-menu"
+import { Avatar, AvatarFallback } from "@/components/ui/avatar"
+import { Pagination, PaginationContent, PaginationItem, PaginationLink, PaginationPrevious, PaginationNext, PaginationEllipsis } from "@/components/ui/pagination"
+
+interface Application {
+  id: string
+  name: string
+  email: string
+  phone: string
+  jobTitle: string
+  department: string
+  location: string
+  appliedOn: string
+  status: "pending" | "shortlisted" | "rejected"
+  progress: number
+}
+
+const statusColors = {
+  pending: "bg-yellow-500",
+  shortlisted: "bg-green-500",
+  rejected: "bg-red-500",
+}
+
+const applications: Application[] = [
+  {
+    id: "1",
+    name: "Rahul Sharma",
+    email: "rahul.sharma@example.com",
+    phone: "+91 98765 43210",
+    jobTitle: "UPSC Civil Services 2025",
+    department: "Union Public Service Commission",
+    location: "All India",
+    appliedOn: "10 Feb 2025",
+    status: "pending",
+    progress: 30,
+  },
+  {
+    id: "2",
+    name: "Priya Patel",
+    email: "priya.patel@example.com",
+    phone: "+91 98765 43211",
+    jobTitle: "SSC CGL 2025",
+    department: "Staff Selection Commission",
+    location: "All India",
+    appliedOn: "15 Jan 2025",
+    status: "shortlisted",
+    progress: 60,
+  },
+  {
+    id: "3",
+    name: "Amit Kumar",
+    email: "amit.kumar@example.com",
+    phone: "+91 98765 43212",
+    jobTitle: "IBPS PO 2025",
+    department: "Institute of Banking Personnel Selection",
+    location: "All India",
+    appliedOn: "05 Dec 2024",
+    status: "rejected",
+    progress: 100,
+  },
+]
 
 export default function AdminApplicationsPage() {
   return (
-    <div className="space-y-6">
+    <div className="px-3">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
       <div>
-        <h1 className="text-3xl font-bold tracking-tight">Manage Applications</h1>
-        <p className="text-muted-foreground">Review and process job applications</p>
+          <h1 className="text-2xl font-bold tracking-tight">Applications</h1>
+          <p className="text-sm text-muted-foreground">Manage and monitor job applications</p>
+        </div>
+        <Button className="bg-red-600 hover:bg-red-700">
+          <Download className="mr-2 h-4 w-4" />
+          Export
+        </Button>
       </div>
 
-      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-        <div className="flex flex-col md:flex-row md:items-center gap-4">
-          <div className="relative">
+      <Tabs defaultValue="all">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-4">
+          <TabsList className="w-full sm:w-auto">
+            <TabsTrigger value="all" className="text-sm">All</TabsTrigger>
+            <TabsTrigger value="pending" className="text-sm">Pending</TabsTrigger>
+            <TabsTrigger value="shortlisted" className="text-sm">Shortlisted</TabsTrigger>
+            <TabsTrigger value="rejected" className="text-sm">Rejected</TabsTrigger>
+          </TabsList>
+
+          <div className="relative flex-1 max-w-sm">
             <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
-            <Input type="search" placeholder="Search applications..." className="pl-8 w-full md:w-[300px]" />
-          </div>
-          <Button variant="outline" size="sm" className="flex items-center gap-2">
-            <Filter className="h-4 w-4" />
-            Filters
-          </Button>
-        </div>
-        <div className="flex items-center gap-2">
-          <Select defaultValue="all">
-            <SelectTrigger className="w-[180px]">
-              <SelectValue placeholder="Status" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="all">All Status</SelectItem>
-              <SelectItem value="pending">Pending</SelectItem>
-              <SelectItem value="shortlisted">Shortlisted</SelectItem>
-              <SelectItem value="rejected">Rejected</SelectItem>
-            </SelectContent>
-          </Select>
-          <Button variant="outline" size="icon">
-            <Download className="h-4 w-4" />
-          </Button>
+            <Input type="search" placeholder="Search applications..." className="pl-8 text-sm" />
         </div>
       </div>
 
-      <Tabs defaultValue="all" className="w-full">
-        <TabsList className="grid w-full grid-cols-4">
-          <TabsTrigger value="all">All Applications</TabsTrigger>
-          <TabsTrigger value="pending">Pending</TabsTrigger>
-          <TabsTrigger value="shortlisted">Shortlisted</TabsTrigger>
-          <TabsTrigger value="rejected">Rejected</TabsTrigger>
-        </TabsList>
-        <TabsContent value="all" className="mt-6">
+        <TabsContent value="all" className="space-y-4">
           <Card>
             <CardContent className="p-0">
               <div className="overflow-x-auto">
                 <table className="w-full">
                   <thead>
-                    <tr className="border-b">
-                      <th className="text-left py-3 px-4">Applicant</th>
-                      <th className="text-left py-3 px-4">Job Position</th>
-                      <th className="text-left py-3 px-4">Applied Date</th>
-                      <th className="text-left py-3 px-4">Status</th>
-                      <th className="text-left py-3 px-4">Actions</th>
+                    <tr className="border-b bg-muted/50">
+                      <th className="text-left py-3 px-4 text-sm font-medium">Applicant</th>
+                      <th className="text-left py-3 px-4 text-sm font-medium">Job Details</th>
+                      <th className="text-left py-3 px-4 text-sm font-medium">Contact</th>
+                      <th className="text-left py-3 px-4 text-sm font-medium">Applied On</th>
+                      <th className="text-left py-3 px-4 text-sm font-medium">Status</th>
+                      <th className="text-left py-3 px-4 text-sm font-medium">Progress</th>
+                      <th className="text-right py-3 px-4 text-sm font-medium">Actions</th>
                     </tr>
                   </thead>
                   <tbody>
-                    {[
-                      {
-                        id: 1,
-                        name: "Rahul Sharma",
-                        email: "rahul.sharma@example.com",
-                        job: "UPSC Civil Services 2025",
-                        department: "Union Public Service Commission",
-                        date: "10 Feb 2025",
-                        status: "pending",
-                      },
-                      {
-                        id: 2,
-                        name: "Priya Patel",
-                        email: "priya.patel@example.com",
-                        job: "SSC CGL 2025",
-                        department: "Staff Selection Commission",
-                        date: "15 Jan 2025",
-                        status: "shortlisted",
-                      },
-                      {
-                        id: 3,
-                        name: "Amit Kumar",
-                        email: "amit.kumar@example.com",
-                        job: "IBPS PO 2025",
-                        department: "Institute of Banking Personnel Selection",
-                        date: "05 Dec 2024",
-                        status: "rejected",
-                      },
-                      {
-                        id: 4,
-                        name: "Neha Singh",
-                        email: "neha.singh@example.com",
-                        job: "RRB NTPC 2024",
-                        department: "Railway Recruitment Board",
-                        date: "20 Nov 2024",
-                        status: "shortlisted",
-                      },
-                      {
-                        id: 5,
-                        name: "Vikram Mehta",
-                        email: "vikram.mehta@example.com",
-                        job: "SBI PO 2024",
-                        department: "State Bank of India",
-                        date: "15 Oct 2024",
-                        status: "pending",
-                      },
-                    ].map((application) => (
+                    {applications.map((application) => (
                       <tr key={application.id} className="border-b hover:bg-muted/50">
                         <td className="py-3 px-4">
-                          <div>
-                            <p className="font-medium">{application.name}</p>
-                            <p className="text-sm text-muted-foreground">{application.email}</p>
+                          <div className="flex items-center gap-3">
+                            <Avatar className="h-8 w-8">
+                              <AvatarFallback className="text-sm">
+                                {application.name
+                                  .split(" ")
+                                  .map((n) => n[0])
+                                  .join("")}
+                              </AvatarFallback>
+                            </Avatar>
+                            <div>
+                              <div className="font-medium text-sm">{application.name}</div>
+                              <div className="text-xs text-muted-foreground">ID: {application.id}</div>
+                            </div>
                           </div>
                         </td>
                         <td className="py-3 px-4">
                           <div>
-                            <p>{application.job}</p>
-                            <p className="text-sm text-muted-foreground">{application.department}</p>
+                            <div className="font-medium text-sm">{application.jobTitle}</div>
+                            <div className="text-xs text-muted-foreground">{application.department}</div>
+                            <div className="text-xs text-muted-foreground">{application.location}</div>
                           </div>
                         </td>
-                        <td className="py-3 px-4">{application.date}</td>
                         <td className="py-3 px-4">
-                          <Badge
-                            className={
-                              application.status === "pending"
-                                ? "bg-yellow-500"
-                                : application.status === "shortlisted"
-                                  ? "bg-green-500"
-                                  : "bg-red-500"
-                            }
-                          >
-                            {application.status === "pending"
-                              ? "Pending"
-                              : application.status === "shortlisted"
-                                ? "Shortlisted"
-                                : "Rejected"}
+                          <div>
+                            <div className="text-sm">{application.email}</div>
+                            <div className="text-xs text-muted-foreground">{application.phone}</div>
+                          </div>
+                        </td>
+                        <td className="py-3 px-4 text-sm">{application.appliedOn}</td>
+                        <td className="py-3 px-4">
+                          <Badge className={`text-xs ${statusColors[application.status as keyof typeof statusColors]}`}>
+                            {application.status}
                           </Badge>
                         </td>
                         <td className="py-3 px-4">
                           <div className="flex items-center gap-2">
-                            <Button variant="outline" size="sm" asChild>
-                              <Link href={`/admin/applications/${application.id}`}>View</Link>
+                            <div className="w-[60px] h-2 bg-muted rounded-full overflow-hidden">
+                              <div
+                                className="h-full bg-green-500"
+                                style={{ width: `${application.progress}%` }}
+                              />
+                            </div>
+                            <span className="text-xs">{application.progress}%</span>
+                          </div>
+                        </td>
+                        <td className="py-3 px-4 text-right">
+                          <DropdownMenu>
+                            <DropdownMenuTrigger asChild>
+                              <Button variant="ghost" size="icon" className="h-8 w-8">
+                                <MoreVertical className="h-4 w-4" />
                             </Button>
+                            </DropdownMenuTrigger>
+                            <DropdownMenuContent align="end" className="text-sm">
+                              <DropdownMenuLabel className="text-sm">Actions</DropdownMenuLabel>
+                              <DropdownMenuItem asChild className="text-sm">
+                                <Link href={`/admin/applications/${application.id}`}>View Details</Link>
+                              </DropdownMenuItem>
                             {application.status === "pending" && (
                               <>
-                                <Button size="sm" className="bg-green-600 hover:bg-green-700">
-                                  Shortlist
-                                </Button>
-                                <Button size="sm" variant="destructive">
-                                  Reject
-                                </Button>
+                                  <DropdownMenuItem className="text-sm text-green-600">Shortlist</DropdownMenuItem>
+                                  <DropdownMenuItem className="text-sm text-red-600">Reject</DropdownMenuItem>
                               </>
                             )}
-                          </div>
+                              <DropdownMenuSeparator />
+                              <DropdownMenuItem className="text-sm text-destructive">Delete</DropdownMenuItem>
+                            </DropdownMenuContent>
+                          </DropdownMenu>
                         </td>
                       </tr>
                     ))}
@@ -168,214 +195,170 @@ export default function AdminApplicationsPage() {
               </div>
             </CardContent>
           </Card>
+
+          <div className="flex items-center justify-between">
+            <p className="text-sm text-muted-foreground">Showing 1-8 of 1,250 applications</p>
+            <Pagination>
+              <PaginationContent>
+                <PaginationItem>
+                  <PaginationPrevious href="#" className="text-sm" />
+                </PaginationItem>
+                <PaginationItem>
+                  <PaginationLink href="#" isActive className="text-sm">
+                    1
+                  </PaginationLink>
+                </PaginationItem>
+                <PaginationItem>
+                  <PaginationLink href="#" className="text-sm">2</PaginationLink>
+                </PaginationItem>
+                <PaginationItem>
+                  <PaginationLink href="#" className="text-sm">3</PaginationLink>
+                </PaginationItem>
+                <PaginationItem>
+                  <PaginationEllipsis className="text-sm" />
+                </PaginationItem>
+                <PaginationItem>
+                  <PaginationNext href="#" className="text-sm" />
+                </PaginationItem>
+              </PaginationContent>
+            </Pagination>
+          </div>
         </TabsContent>
-        <TabsContent value="pending" className="mt-6">
+
+        <TabsContent value="pending">
           <Card>
-            <CardContent className="p-0">
-              <div className="overflow-x-auto">
-                <table className="w-full">
-                  <thead>
-                    <tr className="border-b">
-                      <th className="text-left py-3 px-4">Applicant</th>
-                      <th className="text-left py-3 px-4">Job Position</th>
-                      <th className="text-left py-3 px-4">Applied Date</th>
-                      <th className="text-left py-3 px-4">Status</th>
-                      <th className="text-left py-3 px-4">Actions</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {[
-                      {
-                        id: 1,
-                        name: "Rahul Sharma",
-                        email: "rahul.sharma@example.com",
-                        job: "UPSC Civil Services 2025",
-                        department: "Union Public Service Commission",
-                        date: "10 Feb 2025",
-                        status: "pending",
-                      },
-                      {
-                        id: 5,
-                        name: "Vikram Mehta",
-                        email: "vikram.mehta@example.com",
-                        job: "SBI PO 2024",
-                        department: "State Bank of India",
-                        date: "15 Oct 2024",
-                        status: "pending",
-                      },
-                    ].map((application) => (
-                      <tr key={application.id} className="border-b hover:bg-muted/50">
-                        <td className="py-3 px-4">
-                          <div>
-                            <p className="font-medium">{application.name}</p>
-                            <p className="text-sm text-muted-foreground">{application.email}</p>
+            <CardContent className="p-4">
+              <div className="flex items-center justify-center py-8">
+                <div className="text-center">
+                  <FileText className="h-12 w-12 mx-auto text-muted-foreground mb-4" />
+                  <h3 className="text-lg font-medium mb-2">Pending Applications</h3>
+                  <p className="text-sm text-muted-foreground mb-4">This tab will show only pending applications.</p>
                           </div>
-                        </td>
-                        <td className="py-3 px-4">
-                          <div>
-                            <p>{application.job}</p>
-                            <p className="text-sm text-muted-foreground">{application.department}</p>
-                          </div>
-                        </td>
-                        <td className="py-3 px-4">{application.date}</td>
-                        <td className="py-3 px-4">
-                          <Badge className="bg-yellow-500">Pending</Badge>
-                        </td>
-                        <td className="py-3 px-4">
-                          <div className="flex items-center gap-2">
-                            <Button variant="outline" size="sm" asChild>
-                              <Link href={`/admin/applications/${application.id}`}>View</Link>
-                            </Button>
-                            <Button size="sm" className="bg-green-600 hover:bg-green-700">
-                              Shortlist
-                            </Button>
-                            <Button size="sm" variant="destructive">
-                              Reject
-                            </Button>
-                          </div>
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
               </div>
             </CardContent>
           </Card>
         </TabsContent>
-        <TabsContent value="shortlisted" className="mt-6">
-          {/* Similar table structure for shortlisted applications */}
+
+        <TabsContent value="shortlisted">
           <Card>
-            <CardContent className="p-0">
-              <div className="overflow-x-auto">
-                <table className="w-full">
-                  <thead>
-                    <tr className="border-b">
-                      <th className="text-left py-3 px-4">Applicant</th>
-                      <th className="text-left py-3 px-4">Job Position</th>
-                      <th className="text-left py-3 px-4">Applied Date</th>
-                      <th className="text-left py-3 px-4">Status</th>
-                      <th className="text-left py-3 px-4">Actions</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {[
-                      {
-                        id: 2,
-                        name: "Priya Patel",
-                        email: "priya.patel@example.com",
-                        job: "SSC CGL 2025",
-                        department: "Staff Selection Commission",
-                        date: "15 Jan 2025",
-                        status: "shortlisted",
-                      },
-                      {
-                        id: 4,
-                        name: "Neha Singh",
-                        email: "neha.singh@example.com",
-                        job: "RRB NTPC 2024",
-                        department: "Railway Recruitment Board",
-                        date: "20 Nov 2024",
-                        status: "shortlisted",
-                      },
-                    ].map((application) => (
-                      <tr key={application.id} className="border-b hover:bg-muted/50">
-                        <td className="py-3 px-4">
-                          <div>
-                            <p className="font-medium">{application.name}</p>
-                            <p className="text-sm text-muted-foreground">{application.email}</p>
+            <CardContent className="p-4">
+              <div className="flex items-center justify-center py-8">
+                <div className="text-center">
+                  <FileText className="h-12 w-12 mx-auto text-muted-foreground mb-4" />
+                  <h3 className="text-lg font-medium mb-2">Shortlisted Applications</h3>
+                  <p className="text-sm text-muted-foreground mb-4">This tab will show only shortlisted applications.</p>
                           </div>
-                        </td>
-                        <td className="py-3 px-4">
-                          <div>
-                            <p>{application.job}</p>
-                            <p className="text-sm text-muted-foreground">{application.department}</p>
-                          </div>
-                        </td>
-                        <td className="py-3 px-4">{application.date}</td>
-                        <td className="py-3 px-4">
-                          <Badge className="bg-green-500">Shortlisted</Badge>
-                        </td>
-                        <td className="py-3 px-4">
-                          <div className="flex items-center gap-2">
-                            <Button variant="outline" size="sm" asChild>
-                              <Link href={`/admin/applications/${application.id}`}>View</Link>
-                            </Button>
-                            <Button size="sm" className="bg-red-600 hover:bg-red-700">
-                              Schedule Interview
-                            </Button>
-                          </div>
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
               </div>
             </CardContent>
           </Card>
         </TabsContent>
-        <TabsContent value="rejected" className="mt-6">
-          {/* Similar table structure for rejected applications */}
+
+        <TabsContent value="rejected">
           <Card>
-            <CardContent className="p-0">
-              <div className="overflow-x-auto">
-                <table className="w-full">
-                  <thead>
-                    <tr className="border-b">
-                      <th className="text-left py-3 px-4">Applicant</th>
-                      <th className="text-left py-3 px-4">Job Position</th>
-                      <th className="text-left py-3 px-4">Applied Date</th>
-                      <th className="text-left py-3 px-4">Status</th>
-                      <th className="text-left py-3 px-4">Actions</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {[
-                      {
-                        id: 3,
-                        name: "Amit Kumar",
-                        email: "amit.kumar@example.com",
-                        job: "IBPS PO 2025",
-                        department: "Institute of Banking Personnel Selection",
-                        date: "05 Dec 2024",
-                        status: "rejected",
-                      },
-                    ].map((application) => (
-                      <tr key={application.id} className="border-b hover:bg-muted/50">
-                        <td className="py-3 px-4">
-                          <div>
-                            <p className="font-medium">{application.name}</p>
-                            <p className="text-sm text-muted-foreground">{application.email}</p>
+            <CardContent className="p-4">
+              <div className="flex items-center justify-center py-8">
+                <div className="text-center">
+                  <FileText className="h-12 w-12 mx-auto text-muted-foreground mb-4" />
+                  <h3 className="text-lg font-medium mb-2">Rejected Applications</h3>
+                  <p className="text-sm text-muted-foreground mb-4">This tab will show only rejected applications.</p>
                           </div>
-                        </td>
-                        <td className="py-3 px-4">
-                          <div>
-                            <p>{application.job}</p>
-                            <p className="text-sm text-muted-foreground">{application.department}</p>
-                          </div>
-                        </td>
-                        <td className="py-3 px-4">{application.date}</td>
-                        <td className="py-3 px-4">
-                          <Badge variant="destructive">Rejected</Badge>
-                        </td>
-                        <td className="py-3 px-4">
-                          <div className="flex items-center gap-2">
-                            <Button variant="outline" size="sm" asChild>
-                              <Link href={`/admin/applications/${application.id}`}>View</Link>
-                            </Button>
-                            <Button size="sm" variant="outline">
-                              Reconsider
-                            </Button>
-                          </div>
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
               </div>
             </CardContent>
           </Card>
         </TabsContent>
       </Tabs>
+
+      <div className="mt-6 grid grid-cols-1 md:grid-cols-3 gap-4">
+        <Card>
+          <CardHeader className="p-4">
+            <CardTitle className="text-lg">Application Statistics</CardTitle>
+            <CardDescription className="text-sm">Overview of application data</CardDescription>
+          </CardHeader>
+          <CardContent className="p-4">
+            <div className="space-y-4">
+              <div className="flex items-center justify-between">
+                <span className="text-sm font-medium">Total Applications</span>
+                <span className="font-bold text-sm">1,250</span>
+              </div>
+              <div className="flex items-center justify-between">
+                <span className="text-sm font-medium">Pending</span>
+                <span className="font-bold text-sm">500</span>
+              </div>
+              <div className="flex items-center justify-between">
+                <span className="text-sm font-medium">Shortlisted</span>
+                <span className="font-bold text-sm">300</span>
+              </div>
+              <div className="flex items-center justify-between">
+                <span className="text-sm font-medium">Rejected</span>
+                <span className="font-bold text-sm">450</span>
+              </div>
+              <div className="flex items-center justify-between">
+                <span className="text-sm font-medium">New (This Month)</span>
+                <span className="font-bold text-sm">124</span>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader className="p-4">
+            <CardTitle className="text-lg">Recent Applications</CardTitle>
+            <CardDescription className="text-sm">Latest job applications received</CardDescription>
+          </CardHeader>
+          <CardContent className="p-4">
+            <div className="space-y-4">
+              {applications.slice(0, 5).map((application) => (
+                <div key={application.id} className="flex items-center justify-between">
+                  <div className="flex items-center gap-3">
+                    <Avatar className="h-8 w-8">
+                      <AvatarFallback className="text-sm">
+                        {application.name
+                          .split(" ")
+                          .map((n) => n[0])
+                          .join("")}
+                      </AvatarFallback>
+                    </Avatar>
+                    <div>
+                      <div className="font-medium text-sm">{application.name}</div>
+                      <div className="text-xs text-muted-foreground">{application.appliedOn}</div>
+                    </div>
+                  </div>
+                  <Badge className={`text-xs ${statusColors[application.status as keyof typeof statusColors]}`}>
+                    {application.status}
+                  </Badge>
+                </div>
+              ))}
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader className="p-4">
+            <CardTitle className="text-lg">Quick Actions</CardTitle>
+            <CardDescription className="text-sm">Common application management tasks</CardDescription>
+          </CardHeader>
+          <CardContent className="p-4">
+            <div className="space-y-2">
+              <Button variant="outline" className="w-full justify-start text-sm">
+                <Download className="mr-2 h-4 w-4" />
+                Export All Applications
+              </Button>
+              <Button variant="outline" className="w-full justify-start text-sm">
+                <Mail className="mr-2 h-4 w-4" />
+                Send Bulk Email
+              </Button>
+              <Button variant="outline" className="w-full justify-start text-sm">
+                <FileText className="mr-2 h-4 w-4" />
+                Generate Reports
+              </Button>
+              <Button variant="outline" className="w-full justify-start text-sm">
+                <Users className="mr-2 h-4 w-4" />
+                View Analytics
+              </Button>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
     </div>
   )
 }

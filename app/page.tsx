@@ -148,7 +148,14 @@ export default function Home() {
       <section className="py-2 bg-gray-50 dark:bg-muted/30 relative">
         <div className="absolute inset-0 bg-grid-gray-100/30 dark:bg-grid-gray-800/10 [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)]"></div>
         <div className="container px-2 relative z-10">
-          <h2 className="text-xl font-bold tracking-tighter text-center mb-2 text-gray-800 dark:text-gray-100">Quick Access</h2>
+          {/* Mobile Only Heading */}
+          <div className="block md:hidden">
+            <h2 className="text-xl font-bold tracking-tighter text-center mb-2 text-gray-800 dark:text-gray-100">Job Access</h2>
+          </div>
+          {/* Desktop Only Heading */}
+          <div className="hidden md:block">
+            <h2 className="text-xl font-bold tracking-tighter text-center mb-2 text-gray-800 dark:text-gray-100">Quick Access</h2>
+          </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
             {/* Latest Jobs */}
             <Card className="transition-all hover:shadow-lg border-gray-200 dark:border-gray-800 dark:bg-muted/30 hover:border-red-200 dark:hover:border-red-800">

@@ -78,41 +78,41 @@ export function MobileNav() {
 
       <div 
         className={cn(
-          "fixed top-[48px] left-0 w-[260px] h-[calc(100vh-48px)] bg-red-600 text-white z-10 transition-transform duration-300 ease-in-out shadow-lg",
+          "fixed top-[80px] left-0 w-[260px] h-[calc(100vh-80px)] max-h-[calc(100vh-80px)] overflow-y-auto bg-red-600 text-white z-10 transition-transform duration-300 ease-in-out shadow-lg",
           open ? "translate-x-0" : "-translate-x-full"
         )}
       >
         <div className="flex flex-col h-full">
-          <nav className="flex-1 overflow-y-auto py-4">
-            <div className="space-y-1">
+          <nav className="flex-1 py-2">
+            <div className="space-y-0.5">
               {links.map((link) => (
                 <Link
                   key={link.href}
                   href={link.href}
                   onClick={() => setOpen(false)}
                   className={cn(
-                    "flex items-center gap-3 px-4 py-2.5 text-base font-medium transition-colors",
+                    "flex items-center gap-3 px-4 py-2 text-sm font-medium transition-colors",
                     isActive(link.href)
                       ? "text-white bg-red-700"
                       : "text-white hover:bg-red-700"
                   )}
                 >
-                  <link.icon className="h-5 w-5" />
+                  <link.icon className="h-4 w-4" />
                   <span>{link.name}</span>
                 </Link>
               ))}
             </div>
           </nav>
           
-          <div className="p-4 border-t border-red-500">
+          <div className="p-3 border-t border-red-500">
             <div className="flex flex-col gap-2">
-              <Button variant="outline" className="justify-start h-10 text-base border-red-500 text-white hover:bg-red-700" asChild>
+              <Button variant="outline" className="justify-start h-9 text-sm border-red-500 text-white hover:bg-red-700 hover:text-white" asChild>
                 <Link href="/auth/signin" onClick={() => setOpen(false)}>
-                  <User className="mr-2 h-5 w-5" />
+                  <User className="mr-2 h-4 w-4" />
                   Sign In
                 </Link>
               </Button>
-              <Button className="bg-red-700 hover:bg-red-800 h-10 text-base" asChild>
+              <Button className="bg-red-700 hover:bg-red-800 h-9 text-sm text-white" asChild>
                 <Link href="/auth/signup" onClick={() => setOpen(false)}>
                   Sign Up
                 </Link>

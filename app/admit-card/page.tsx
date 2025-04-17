@@ -4,34 +4,36 @@ import { Input } from "@/components/ui/input"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Label } from "@/components/ui/label"
+import { SiteHeader } from "@/components/mobile/layout/site-header"
 
 export default function AdmitCardPage() {
   return (
     <div className="flex min-h-screen flex-col">
+      <SiteHeader />
       <main className="flex-1">
-        <section className="py-12 md:py-16 bg-muted/30">
-          <div className="container px-4 md:px-6">
-            <div className="flex flex-col items-center text-center space-y-4">
-              <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
+        <section className="pt-2 pb-4 sm:py-8 md:py-12 bg-muted/30">
+          <div className="container px-3 sm:px-4">
+            <div className="flex flex-col items-center text-center space-y-1 sm:space-y-4">
+              <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold tracking-tighter">
                 Download Your <span className="text-red-600">Admit Card</span>
               </h1>
-              <p className="max-w-[700px] text-muted-foreground md:text-xl">
+              <p className="max-w-[700px] text-muted-foreground text-sm sm:text-base md:text-xl">
                 Access your exam hall ticket and important exam instructions.
               </p>
             </div>
           </div>
         </section>
 
-        <section className="py-12 md:py-16">
-          <div className="container px-4 md:px-6">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-5xl mx-auto">
+        <section className="py-4 sm:py-8 md:py-12">
+          <div className="container px-3 sm:px-4">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 lg:gap-8 max-w-5xl mx-auto">
               <Card>
                 <CardHeader>
                   <CardTitle>Download Admit Card</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="space-y-6">
-                    <div className="space-y-4">
+                  <div className="space-y-4 sm:space-y-6">
+                    <div className="space-y-2 sm:space-y-4">
                       <div className="space-y-2">
                         <Label htmlFor="exam">Select Exam</Label>
                         <select
@@ -64,7 +66,7 @@ export default function AdmitCardPage() {
                             <Input id="captcha" placeholder="Enter captcha" />
                           </div>
                           <div className="h-10 w-24 bg-muted flex items-center justify-center rounded-md text-sm font-bold tracking-widest">
-                            B3K7M9
+                            A7X9P2
                           </div>
                         </div>
                       </div>
@@ -75,81 +77,35 @@ export default function AdmitCardPage() {
                 </CardContent>
               </Card>
 
-              <div>
-                <Card className="mb-6">
-                  <CardHeader>
-                    <CardTitle>Latest Admit Cards</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="space-y-4">
-                      {[1, 2, 3].map((i) => (
-                        <Card
-                          key={i}
-                          className="overflow-hidden transition-all hover:shadow-md border-muted hover:border-red-200 dark:hover:border-red-900"
-                        >
-                          <CardContent className="p-4 flex items-center justify-between">
-                            <div>
-                              <h3 className="font-medium text-lg">
-                                {["SSC CHSL 2024", "RRB NTPC 2024", "IBPS Clerk 2024"][i - 1]}
-                              </h3>
-                              <div className="flex items-center gap-2 mt-1">
-                                <Calendar className="h-3 w-3 text-muted-foreground" />
-                                <p className="text-xs text-muted-foreground">
-                                  Exam Date: {["15 Mar", "25 Mar", "10 Apr"][i - 1]} 2025
-                                </p>
-                              </div>
-                            </div>
-                            <div className="flex items-center gap-3">
-                              {i < 3 && <Badge className="bg-yellow-500">Urgent</Badge>}
-                              <Button size="sm" variant="outline" className="rounded-full h-8 w-8 p-0">
-                                <ArrowRight className="h-4 w-4" />
-                              </Button>
-                            </div>
-                          </CardContent>
-                        </Card>
-                      ))}
+              <Card>
+                <CardHeader>
+                  <CardTitle>Exam Guidelines</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-4">
+                    <div className="p-3 sm:p-4 bg-muted rounded-lg">
+                      <h3 className="font-medium mb-2 text-sm sm:text-base">Important Instructions</h3>
+                      <ul className="space-y-2 text-xs sm:text-sm text-muted-foreground list-disc list-inside">
+                        <li>Candidates must carry their Admit Card and a valid Photo ID proof to the exam center.</li>
+                        <li>Reach the exam center at least 1 hour before the exam time.</li>
+                        <li>Electronic devices including mobile phones, calculators, etc. are not allowed in the exam hall.</li>
+                        <li>Candidates should follow all COVID-19 protocols as per the guidelines.</li>
+                        <li>Candidates are advised to check the exam center location a day before the exam.</li>
+                      </ul>
                     </div>
-                  </CardContent>
-                </Card>
 
-                <Card>
-                  <CardHeader>
-                    <CardTitle>Exam Guidelines</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="space-y-4">
-                      <div className="p-4 bg-muted rounded-lg">
-                        <h3 className="font-medium mb-2">Important Instructions</h3>
-                        <ul className="space-y-2 text-sm text-muted-foreground list-disc list-inside">
-                          <li>Candidates must carry their Admit Card and a valid Photo ID proof to the exam center.</li>
-                          <li>Reach the exam center at least 1 hour before the exam time.</li>
-                          <li>
-                            Electronic devices including mobile phones, calculators, etc. are not allowed in the exam
-                            hall.
-                          </li>
-                          <li>Candidates should follow all COVID-19 protocols as per the guidelines.</li>
-                          <li>Candidates are advised to check the exam center location a day before the exam.</li>
-                        </ul>
-                      </div>
-
-                      <div className="p-4 bg-muted rounded-lg">
-                        <h3 className="font-medium mb-2">Documents to Carry</h3>
-                        <ul className="space-y-2 text-sm text-muted-foreground list-disc list-inside">
-                          <li>Admit Card (2 copies)</li>
-                          <li>Valid Photo ID (Aadhar Card/Voter ID/Driving License/Passport)</li>
-                          <li>2 Passport size photographs (same as uploaded in application)</li>
-                          <li>Black/Blue ballpoint pen</li>
-                        </ul>
-                      </div>
-
-                      <Button variant="outline" className="w-full flex items-center justify-center gap-2">
-                        <FileText className="h-4 w-4" />
-                        Download Complete Guidelines
-                      </Button>
+                    <div className="p-3 sm:p-4 bg-muted rounded-lg">
+                      <h3 className="font-medium mb-2 text-sm sm:text-base">Documents to Carry</h3>
+                      <ul className="space-y-2 text-xs sm:text-sm text-muted-foreground list-disc list-inside">
+                        <li>Admit Card (2 copies)</li>
+                        <li>Valid Photo ID (Aadhar Card/Voter ID/Driving License/Passport)</li>
+                        <li>2 Passport size photographs (same as uploaded in application)</li>
+                        <li>Black/Blue ballpoint pen</li>
+                      </ul>
                     </div>
-                  </CardContent>
-                </Card>
-              </div>
+                  </div>
+                </CardContent>
+              </Card>
             </div>
           </div>
         </section>

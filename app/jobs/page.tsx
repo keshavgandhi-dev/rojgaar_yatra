@@ -25,7 +25,7 @@ export default function JobsPage() {
                 className="pl-9 h-10 text-sm border-gray-200 focus:border-blue-500 focus:ring-blue-500 bg-white dark:bg-gray-800 dark:border-gray-700 dark:text-gray-100 dark:placeholder:text-gray-500"
               />
             </div>
-            <Button className="h-10 text-sm bg-blue-600 hover:bg-blue-700 dark:bg-blue-700 dark:hover:bg-blue-800 text-white">
+            <Button className="h-10 text-sm bg-red-600 hover:bg-red-700 dark:bg-red-700 dark:hover:bg-red-800 text-white">
               Search Jobs
             </Button>
           </div>
@@ -71,7 +71,7 @@ export default function JobsPage() {
                   <div>
                     <CardTitle className="text-base font-semibold text-gray-900 dark:text-gray-100">UPSC Civil Services 2025</CardTitle>
                     <div className="flex gap-2 mt-2">
-                      <Badge variant="outline" className="bg-blue-50 text-blue-700 text-[10px] px-2 py-0.5 border-blue-200 dark:bg-blue-900/20 dark:text-blue-400 dark:border-blue-800">UPSC</Badge>
+                      <Badge variant="outline" className="bg-red-50 text-red-700 text-[10px] px-2 py-0.5 border-red-200 dark:bg-red-900/20 dark:text-red-400 dark:border-red-800">UPSC</Badge>
                       <Badge variant="outline" className="bg-red-50 text-red-700 text-[10px] px-2 py-0.5 border-red-200 dark:bg-red-900/20 dark:text-red-400 dark:border-red-800">Closing Soon</Badge>
                     </div>
                   </div>
@@ -96,7 +96,7 @@ export default function JobsPage() {
                     <GraduationCap className="h-3 w-3" />
                     <span>Qualification: Graduation</span>
                   </div>
-                  <Button className="w-full h-9 text-sm bg-blue-600 hover:bg-blue-700 dark:bg-blue-700 dark:hover:bg-blue-800 text-white" asChild>
+                  <Button className="w-full h-9 text-sm bg-red-600 hover:bg-red-700 dark:bg-red-700 dark:hover:bg-red-800 text-white" asChild>
                     <Link href="/jobs/upsc-civil-services-2025">View Details</Link>
                   </Button>
                 </div>
@@ -110,7 +110,7 @@ export default function JobsPage() {
                   <div>
                     <CardTitle className="text-base font-semibold text-gray-900 dark:text-gray-100">SSC CGL 2025</CardTitle>
                     <div className="flex gap-2 mt-2">
-                      <Badge variant="outline" className="bg-blue-50 text-blue-700 text-[10px] px-2 py-0.5 border-blue-200 dark:bg-blue-900/20 dark:text-blue-400 dark:border-blue-800">SSC</Badge>
+                      <Badge variant="outline" className="bg-red-50 text-red-700 text-[10px] px-2 py-0.5 border-red-200 dark:bg-red-900/20 dark:text-red-400 dark:border-red-800">SSC</Badge>
                       <Badge variant="outline" className="bg-green-50 text-green-700 text-[10px] px-2 py-0.5 border-green-200 dark:bg-green-900/20 dark:text-green-400 dark:border-green-800">New</Badge>
                     </div>
                   </div>
@@ -135,7 +135,7 @@ export default function JobsPage() {
                     <GraduationCap className="h-3 w-3" />
                     <span>Qualification: Graduation</span>
                   </div>
-                  <Button className="w-full h-9 text-sm bg-blue-600 hover:bg-blue-700 dark:bg-blue-700 dark:hover:bg-blue-800 text-white" asChild>
+                  <Button className="w-full h-9 text-sm bg-red-600 hover:bg-red-700 dark:bg-red-700 dark:hover:bg-red-800 text-white" asChild>
                     <Link href="/jobs/ssc-cgl-2025">View Details</Link>
                   </Button>
                 </div>
@@ -149,7 +149,7 @@ export default function JobsPage() {
                   <div>
                     <CardTitle className="text-base font-semibold text-gray-900 dark:text-gray-100">IBPS PO 2025</CardTitle>
                     <div className="flex gap-2 mt-2">
-                      <Badge variant="outline" className="bg-blue-50 text-blue-700 text-[10px] px-2 py-0.5 border-blue-200 dark:bg-blue-900/20 dark:text-blue-400 dark:border-blue-800">Banking</Badge>
+                      <Badge variant="outline" className="bg-red-50 text-red-700 text-[10px] px-2 py-0.5 border-red-200 dark:bg-red-900/20 dark:text-red-400 dark:border-red-800">Banking</Badge>
                       <Badge variant="outline" className="bg-green-50 text-green-700 text-[10px] px-2 py-0.5 border-green-200 dark:bg-green-900/20 dark:text-green-400 dark:border-green-800">New</Badge>
                     </div>
                   </div>
@@ -174,7 +174,7 @@ export default function JobsPage() {
                     <GraduationCap className="h-3 w-3" />
                     <span>Qualification: Graduation</span>
                   </div>
-                  <Button className="w-full h-9 text-sm bg-blue-600 hover:bg-blue-700 dark:bg-blue-700 dark:hover:bg-blue-800 text-white" asChild>
+                  <Button className="w-full h-9 text-sm bg-red-600 hover:bg-red-700 dark:bg-red-700 dark:hover:bg-red-800 text-white" asChild>
                     <Link href="/jobs/ibps-po-2025">View Details</Link>
                   </Button>
                 </div>

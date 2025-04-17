@@ -4,100 +4,113 @@ import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Label } from "@/components/ui/label"
+import { SiteHeader } from "@/components/mobile/layout/site-header"
 
 export default function ContactPage() {
   return (
     <div className="flex min-h-screen flex-col">
+      <SiteHeader />
       <main className="flex-1">
-        <section className="py-12 md:py-16 bg-muted/30">
-          <div className="container px-4 md:px-6">
-            <div className="flex flex-col items-center text-center space-y-4">
-              <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
-                Get in <span className="text-red-600">Touch</span>
+        <section className="pt-2 pb-4 sm:py-8 md:py-12 bg-muted/30">
+          <div className="container px-3 sm:px-4">
+            <div className="flex flex-col items-center text-center space-y-1 sm:space-y-4">
+              <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold tracking-tighter">
+                Contact <span className="text-red-600">Us</span>
               </h1>
-              <p className="max-w-[700px] text-muted-foreground md:text-xl">
-                We're here to help with any questions about government jobs, exams, or our services.
+              <p className="max-w-[700px] text-muted-foreground text-sm sm:text-base md:text-xl">
+                Get in touch with us for any queries or support
               </p>
             </div>
           </div>
         </section>
 
-        <section className="py-12 md:py-16">
-          <div className="container px-4 md:px-6">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-5xl mx-auto">
+        <section className="py-4 sm:py-8 md:py-12">
+          <div className="container px-3 sm:px-4">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 lg:gap-8 max-w-5xl mx-auto">
               <Card>
                 <CardHeader>
-                  <CardTitle>Send Us a Message</CardTitle>
+                  <CardTitle>Send us a Message</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <form className="space-y-6">
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <form className="space-y-4 sm:space-y-6">
+                    <div className="space-y-2 sm:space-y-4">
                       <div className="space-y-2">
-                        <Label htmlFor="name">Your Name</Label>
-                        <Input id="name" placeholder="Enter your name" />
+                        <label htmlFor="name" className="text-sm font-medium">
+                          Full Name
+                        </label>
+                        <Input id="name" placeholder="Enter your full name" />
                       </div>
+
                       <div className="space-y-2">
-                        <Label htmlFor="email">Email Address</Label>
-                        <Input id="email" type="email" placeholder="Enter your email" />
-                      </div>
+                        <label htmlFor="email" className="text-sm font-medium">
+                          Email Address
+                        </label>
+                        <Input id="email" type="email" placeholder="Enter your email address" />
                     </div>
 
                     <div className="space-y-2">
-                      <Label htmlFor="subject">Subject</Label>
-                      <Input id="subject" placeholder="Enter subject" />
+                        <label htmlFor="subject" className="text-sm font-medium">
+                          Subject
+                        </label>
+                        <Input id="subject" placeholder="Enter the subject" />
                     </div>
 
                     <div className="space-y-2">
-                      <Label htmlFor="message">Message</Label>
-                      <Textarea id="message" placeholder="Enter your message" className="min-h-[150px]" />
+                        <label htmlFor="message" className="text-sm font-medium">
+                          Message
+                        </label>
+                        <Textarea
+                          id="message"
+                          placeholder="Enter your message"
+                          className="min-h-[120px]"
+                        />
+                      </div>
                     </div>
 
-                    <Button type="submit" className="w-full bg-red-600 hover:bg-red-700">
-                      Send Message
-                    </Button>
+                    <Button className="w-full bg-red-600 hover:bg-red-700">Send Message</Button>
                   </form>
                 </CardContent>
               </Card>
 
-              <div className="space-y-6">
+              <div className="space-y-4 sm:space-y-6">
                 <Card>
                   <CardHeader>
                     <CardTitle>Contact Information</CardTitle>
                   </CardHeader>
                   <CardContent>
                     <div className="space-y-4">
-                      <div className="flex items-start gap-3">
-                        <MapPin className="h-5 w-5 text-red-600 mt-0.5" />
+                      <div className="flex items-start gap-4">
+                        <div className="h-10 w-10 rounded-full bg-red-100 dark:bg-red-900/20 flex items-center justify-center">
+                          <Phone className="h-5 w-5 text-red-600" />
+                        </div>
                         <div>
-                          <h3 className="font-medium">Our Address</h3>
-                          <p className="text-sm text-muted-foreground mt-1">
-                            123 Main Street, New Delhi - 110001, India
+                          <h3 className="font-medium text-sm sm:text-base">Phone</h3>
+                          <p className="text-sm sm:text-base text-muted-foreground">
+                            +91 98765 43210
                           </p>
                         </div>
                       </div>
 
-                      <div className="flex items-start gap-3">
-                        <Phone className="h-5 w-5 text-red-600 mt-0.5" />
+                      <div className="flex items-start gap-4">
+                        <div className="h-10 w-10 rounded-full bg-red-100 dark:bg-red-900/20 flex items-center justify-center">
+                          <Mail className="h-5 w-5 text-red-600" />
+                        </div>
                         <div>
-                          <h3 className="font-medium">Phone Number</h3>
-                          <p className="text-sm text-muted-foreground mt-1">+91 9876543210</p>
+                          <h3 className="font-medium text-sm sm:text-base">Email</h3>
+                          <p className="text-sm sm:text-base text-muted-foreground">
+                            support@rojgaaryatra.com
+                          </p>
                         </div>
                       </div>
 
-                      <div className="flex items-start gap-3">
-                        <Mail className="h-5 w-5 text-red-600 mt-0.5" />
-                        <div>
-                          <h3 className="font-medium">Email Address</h3>
-                          <p className="text-sm text-muted-foreground mt-1">info@rojgaaryatra.com</p>
+                      <div className="flex items-start gap-4">
+                        <div className="h-10 w-10 rounded-full bg-red-100 dark:bg-red-900/20 flex items-center justify-center">
+                          <MapPin className="h-5 w-5 text-red-600" />
                         </div>
-                      </div>
-
-                      <div className="flex items-start gap-3">
-                        <MessageSquare className="h-5 w-5 text-red-600 mt-0.5" />
                         <div>
-                          <h3 className="font-medium">Live Chat Support</h3>
-                          <p className="text-sm text-muted-foreground mt-1">
-                            Available Monday to Saturday, 9:00 AM - 6:00 PM
+                          <h3 className="font-medium text-sm sm:text-base">Address</h3>
+                          <p className="text-sm sm:text-base text-muted-foreground">
+                            123, Exam Center Road, New Delhi - 110001
                           </p>
                         </div>
                       </div>
@@ -107,10 +120,10 @@ export default function ContactPage() {
 
                 <Card>
                   <CardHeader>
-                    <CardTitle>Office Hours</CardTitle>
+                    <CardTitle>Business Hours</CardTitle>
                   </CardHeader>
                   <CardContent>
-                    <div className="space-y-2">
+                    <div className="space-y-2 text-sm sm:text-base text-muted-foreground">
                       <div className="flex justify-between">
                         <span>Monday - Friday</span>
                         <span>9:00 AM - 6:00 PM</span>
@@ -119,7 +132,7 @@ export default function ContactPage() {
                         <span>Saturday</span>
                         <span>10:00 AM - 4:00 PM</span>
                       </div>
-                      <div className="flex justify-between text-muted-foreground">
+                      <div className="flex justify-between">
                         <span>Sunday</span>
                         <span>Closed</span>
                       </div>

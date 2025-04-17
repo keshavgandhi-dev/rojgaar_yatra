@@ -17,6 +17,7 @@ import {
   Phone,
   Home,
   CreditCard,
+  Loader2,
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
@@ -34,6 +35,8 @@ import { useForm } from "react-hook-form"
 import { z } from "zod"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { toast } from "@/components/ui/use-toast"
+import { SiteHeader } from "@/components/mobile/layout/site-header"
+import { Badge } from "@/components/ui/badge"
 
 export default function JobApplicationPage({ params }: { params: Promise<{ id: string }> }) {
   const resolvedParams = use(params)
@@ -923,86 +926,190 @@ export default function JobApplicationPage({ params }: { params: Promise<{ id: s
   }
 
   return (
-    <div className="min-h-screen bg-muted/30 py-12">
-      <div className="container">
-        <div className="mb-8">
-          <Link href={`/jobs/${jobId}`} className="inline-flex items-center text-sm font-medium text-red-600">
-            <ArrowLeft className="mr-1 h-4 w-4" />
-            Back to Job Details
-          </Link>
-          <h1 className="mt-4 text-3xl font-bold tracking-tight">{job.title}</h1>
-          <p className="text-muted-foreground">{job.department}</p>
-        </div>
-
-        <div className="mb-8">
-          <div className="flex items-center justify-between mb-2">
-            <h2 className="text-lg font-medium">Application Progress</h2>
-            <span className="text-sm font-medium">{step}/5</span>
+    <>
+      <SiteHeader />
+      <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white dark:from-gray-900 dark:to-gray-950 py-8">
+        <div className="container px-4">
+          <div className="mb-8">
+            <Link 
+              href={`/jobs/${jobId}`} 
+              className="inline-flex items-center text-sm font-medium text-red-600 hover:text-red-700 transition-colors group"
+            >
+              <ArrowLeft className="mr-1 h-4 w-4 group-hover:-translate-x-1 transition-transform" />
+              Back to Job Details
+            </Link>
+            <h1 className="mt-4 text-3xl font-bold tracking-tight bg-gradient-to-r from-red-600 to-red-700 bg-clip-text text-transparent">
+              {job.title}
+            </h1>
+            <p className="text-muted-foreground mt-1">{job.department}</p>
           </div>
-          <Progress value={step * 20} className="h-2" />
-          <div className="mt-2 grid grid-cols-5 text-xs">
-            <div className={`text-center ${step >= 1 ? "text-red-600 font-medium" : "text-muted-foreground"}`}>
-              Personal Details
-            </div>
-            <div className={`text-center ${step >= 2 ? "text-red-600 font-medium" : "text-muted-foreground"}`}>
-              Qualification
-            </div>
-            <div className={`text-center ${step >= 3 ? "text-red-600 font-medium" : "text-muted-foreground"}`}>
-              Documents
-            </div>
-            <div className={`text-center ${step >= 4 ? "text-red-600 font-medium" : "text-muted-foreground"}`}>
-              Payment
-            </div>
-            <div className={`text-center ${step >= 5 ? "text-red-600 font-medium" : "text-muted-foreground"}`}>
-              Review
-            </div>
-          </div>
-        </div>
 
-        <Card className="max-w-4xl mx-auto">
-          <CardHeader>
-            <CardTitle>
-              {step === 1 && "Personal Details"}
-              {step === 2 && "Qualification Details"}
-              {step === 3 && "Document Upload"}
-              {step === 4 && "Payment"}
-              {step === 5 && "Review & Submit"}
-            </CardTitle>
-            <CardDescription>
-              {step === 1 && "Provide your personal and contact information"}
-              {step === 2 && "Enter your educational qualifications"}
-              {step === 3 && "Upload required documents"}
-              {step === 4 && "Complete payment of application fee"}
-              {step === 5 && "Review your application before final submission"}
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <form onSubmit={handleSubmit}>
-              {renderStepContent()}
-
-              <div className="mt-8 flex justify-between">
-                {step > 1 && (
-                  <Button type="button" variant="outline" onClick={prevStep}>
-                    <ArrowLeft className="mr-2 h-4 w-4" />
-                    Previous
-                  </Button>
-                )}
-                {step < 5 ? (
-                  <Button type="submit" className="ml-auto bg-red-600 hover:bg-red-700" disabled={isLoading}>
-                    {isLoading ? "Processing..." : "Next"}
-                    <ArrowRight className="ml-2 h-4 w-4" />
-                  </Button>
-                ) : (
-                  <Button type="submit" className="ml-auto bg-red-600 hover:bg-red-700" disabled={isLoading}>
-                    {isLoading ? "Processing..." : "Submit Application"}
-                  </Button>
-                )}
+          <div className="mb-8">
+            <div className="flex items-center justify-between mb-4">
+              <h2 className="text-lg font-medium bg-gradient-to-r from-red-600 to-red-700 bg-clip-text text-transparent">
+                Application Progress
+              </h2>
+              <span className="text-sm font-medium text-red-600 bg-red-50 dark:bg-red-900/30 px-3 py-1 rounded-full">
+                Step {step}/5
+              </span>
+            </div>
+            <div className="relative">
+              <Progress value={step * 20} className="h-2 bg-gray-100 dark:bg-gray-800" />
+              <div className="absolute inset-0 flex items-center justify-between">
+                {[1, 2, 3, 4, 5].map((s) => (
+                  <div
+                    key={s}
+                    className={`h-5 w-5 rounded-full border-2 transition-all duration-300 ${
+                      step >= s
+                        ? "border-red-600 bg-red-600 scale-110"
+                        : "border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900"
+                    }`}
+                  />
+                ))}
               </div>
-            </form>
-          </CardContent>
-        </Card>
+            </div>
+            <div className="mt-6 grid grid-cols-5 text-xs font-medium">
+              <div className={`text-center ${step >= 1 ? "text-red-600" : "text-gray-500 dark:text-gray-400"}`}>
+                Personal
+              </div>
+              <div className={`text-center ${step >= 2 ? "text-red-600" : "text-gray-500 dark:text-gray-400"}`}>
+                Qualification
+              </div>
+              <div className={`text-center ${step >= 3 ? "text-red-600" : "text-gray-500 dark:text-gray-400"}`}>
+                Documents
+              </div>
+              <div className={`text-center ${step >= 4 ? "text-red-600" : "text-gray-500 dark:text-gray-400"}`}>
+                Payment
+              </div>
+              <div className={`text-center ${step >= 5 ? "text-red-600" : "text-gray-500 dark:text-gray-400"}`}>
+                Review
+              </div>
+            </div>
+          </div>
+
+          <Card className="max-w-4xl mx-auto border-0 shadow-xl dark:shadow-none overflow-hidden">
+            <CardHeader className="bg-gradient-to-r from-red-600 to-red-700 text-white p-6">
+              <CardTitle className="text-xl font-bold">
+                {step === 1 && "Personal Details"}
+                {step === 2 && "Qualification Details"}
+                {step === 3 && "Document Upload"}
+                {step === 4 && "Payment"}
+                {step === 5 && "Review & Submit"}
+              </CardTitle>
+              <CardDescription className="text-red-100/90 mt-1">
+                {step === 1 && "Provide your personal and contact information"}
+                {step === 2 && "Enter your educational qualifications"}
+                {step === 3 && "Upload required documents"}
+                {step === 4 && "Complete payment of application fee"}
+                {step === 5 && "Review your application before final submission"}
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="p-6 bg-white dark:bg-gray-900">
+              <form onSubmit={handleSubmit} className="space-y-6">
+                {renderStepContent()}
+
+                <div className="mt-8 flex flex-col sm:flex-row justify-between gap-4">
+                  {step > 1 && (
+                    <Button 
+                      type="button" 
+                      variant="outline" 
+                      onClick={prevStep} 
+                      className="w-full sm:w-auto border-red-200 hover:border-red-300 hover:bg-red-50 dark:border-red-800 dark:hover:border-red-700 dark:hover:bg-red-950 transition-all duration-300"
+                    >
+                      <ArrowLeft className="mr-2 h-4 w-4" />
+                      Previous
+                    </Button>
+                  )}
+                  {step < 5 ? (
+                    <Button 
+                      type="submit" 
+                      className="w-full sm:w-auto ml-auto bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white shadow-md hover:shadow-lg transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed" 
+                      disabled={isLoading}
+                    >
+                      {isLoading ? (
+                        <>
+                          <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                          Processing...
+                        </>
+                      ) : (
+                        <>
+                          Next
+                          <ArrowRight className="ml-2 h-4 w-4" />
+                        </>
+                      )}
+                    </Button>
+                  ) : (
+                    <Button 
+                      type="submit" 
+                      className="w-full sm:w-auto ml-auto bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white shadow-md hover:shadow-lg transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed" 
+                      disabled={isLoading}
+                    >
+                      {isLoading ? (
+                        <>
+                          <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                          Submitting...
+                        </>
+                      ) : (
+                        "Submit Application"
+                      )}
+                    </Button>
+                  )}
+                </div>
+              </form>
+            </CardContent>
+          </Card>
+        </div>
       </div>
-    </div>
+
+      {/* Related Jobs Section */}
+      <div className="bg-gray-50 dark:bg-gray-900 py-12">
+        <div className="container px-4">
+          <h2 className="text-2xl font-bold mb-6 bg-gradient-to-r from-red-600 to-red-700 bg-clip-text text-transparent">
+            Similar Jobs You Might Like
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {[1, 2, 3].map((job) => (
+              <Card key={job} className="border-0 shadow-lg hover:shadow-xl transition-all duration-300">
+                <CardHeader className="p-4">
+                  <div className="flex justify-between items-start">
+                    <div>
+                      <CardTitle className="text-lg font-bold">UPSC Civil Services 2025</CardTitle>
+                      <CardDescription className="mt-1">Union Public Service Commission</CardDescription>
+                    </div>
+                    <Badge variant="outline" className="bg-red-50 text-red-600 dark:bg-red-900/30 dark:text-red-400">
+                      New
+                    </Badge>
+                  </div>
+                </CardHeader>
+                <CardContent className="p-4 pt-0">
+                  <div className="space-y-3">
+                    <div className="flex justify-between text-sm">
+                      <span className="text-muted-foreground">Last Date:</span>
+                      <span className="font-medium">15 Apr 2025</span>
+                    </div>
+                    <div className="flex justify-between text-sm">
+                      <span className="text-muted-foreground">Vacancies:</span>
+                      <span className="font-medium">1200</span>
+                    </div>
+                    <div className="flex justify-between text-sm">
+                      <span className="text-muted-foreground">Age Limit:</span>
+                      <span className="font-medium">21-32 years</span>
+                    </div>
+                    <div className="flex justify-between text-sm">
+                      <span className="text-muted-foreground">Qualification:</span>
+                      <span className="font-medium">Graduation</span>
+                    </div>
+                    <Button className="w-full mt-4 bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white shadow-md hover:shadow-lg transition-all duration-300">
+                      Apply Now
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </div>
+    </>
   )
 }
 

@@ -64,32 +64,25 @@ export function MobileNav() {
       >
         <span 
           className={cn(
-            "block w-5 h-0.5 bg-black dark:bg-white rounded-full transition-all duration-300 ease-in-out origin-center",
-            open ? "rotate-45 translate-y-1.5" : ""
+            "block w-5 h-0.5 bg-white sm:bg-black dark:bg-white rounded-full transition-all duration-300 ease-in-out origin-center",
+            open ? "rotate-45 translate-y-1" : ""
           )}
         ></span>
         <span 
           className={cn(
-            "block w-5 h-0.5 bg-black dark:bg-white rounded-full mt-1 transition-all duration-300 ease-in-out",
-            open ? "opacity-0" : ""
-          )}
-        ></span>
-        <span 
-          className={cn(
-            "block w-5 h-0.5 bg-black dark:bg-white rounded-full mt-1 transition-all duration-300 ease-in-out origin-center",
-            open ? "-rotate-45 -translate-y-1.5" : ""
+            "block w-5 h-0.5 bg-white sm:bg-black dark:bg-white rounded-full mt-1 transition-all duration-300 ease-in-out origin-center",
+            open ? "-rotate-45 -translate-y-1" : ""
           )}
         ></span>
       </button>
 
       <div 
         className={cn(
-          "fixed top-0 left-0 w-[260px] h-full bg-black text-white z-10 transition-transform duration-300 ease-in-out shadow-lg",
+          "fixed top-[48px] left-0 w-[260px] h-[calc(100vh-48px)] bg-red-600 text-white z-10 transition-transform duration-300 ease-in-out shadow-lg",
           open ? "translate-x-0" : "-translate-x-full"
         )}
       >
         <div className="flex flex-col h-full">
-          <div className="h-[60px]"></div> {/* Exact header height spacer */}
           <nav className="flex-1 overflow-y-auto py-4">
             <div className="space-y-1">
               {links.map((link) => (
@@ -100,8 +93,8 @@ export function MobileNav() {
                   className={cn(
                     "flex items-center gap-3 px-4 py-2.5 text-base font-medium transition-colors",
                     isActive(link.href)
-                      ? "text-red-500 bg-gray-900"
-                      : "text-gray-300 hover:text-white hover:bg-gray-900"
+                      ? "text-white bg-red-700"
+                      : "text-white hover:bg-red-700"
                   )}
                 >
                   <link.icon className="h-5 w-5" />
@@ -111,15 +104,15 @@ export function MobileNav() {
             </div>
           </nav>
           
-          <div className="p-4 border-t border-gray-800">
+          <div className="p-4 border-t border-red-500">
             <div className="flex flex-col gap-2">
-              <Button variant="outline" className="justify-start h-10 text-base border-gray-700 text-white hover:bg-gray-900" asChild>
+              <Button variant="outline" className="justify-start h-10 text-base border-red-500 text-white hover:bg-red-700" asChild>
                 <Link href="/auth/signin" onClick={() => setOpen(false)}>
                   <User className="mr-2 h-5 w-5" />
                   Sign In
                 </Link>
               </Button>
-              <Button className="bg-red-600 hover:bg-red-700 h-10 text-base" asChild>
+              <Button className="bg-red-700 hover:bg-red-800 h-10 text-base" asChild>
                 <Link href="/auth/signup" onClick={() => setOpen(false)}>
                   Sign Up
                 </Link>

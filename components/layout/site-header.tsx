@@ -31,15 +31,15 @@ export function SiteHeader() {
 
   return (
     <>
-      {/* Navbar */}
+      {/* Main Header */}
       <header 
         className={`sticky top-0 z-50 w-full border-b transition-all duration-300 ${
           isScrolled 
-            ? "bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 shadow-md dark:shadow-gray-900/20" 
-            : "bg-background"
+            ? "sm:bg-background/95 bg-red-600 sm:backdrop-blur sm:supports-[backdrop-filter]:bg-background/60 shadow-md dark:shadow-gray-900/20" 
+            : "sm:bg-background bg-red-600"
         }`}
       >
-        <div className="container flex h-12 items-center justify-between px-2">
+        <div className="container flex h-10 items-center justify-between px-2">
           <div className="flex items-center gap-1">
             <MobileNav />
             <Logo />
@@ -56,9 +56,9 @@ export function SiteHeader() {
                   <Button 
                     variant="ghost" 
                     size="icon" 
-                    className="h-9 w-9 rounded-full bg-transparent text-gray-700 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-300 dark:hover:bg-gray-800 dark:hover:text-white"
+                    className="h-8 w-8 rounded-full bg-transparent text-white sm:text-gray-700 hover:bg-red-700 sm:hover:bg-gray-100 hover:text-white sm:hover:text-gray-900 dark:text-gray-300 dark:hover:bg-gray-800 dark:hover:text-white"
                   >
-                    <Search className="h-5 w-5" />
+                    <Search className="h-4 w-4" />
                     <span className="sr-only">Search</span>
                   </Button>
                 </SheetTrigger>
@@ -91,11 +91,6 @@ export function SiteHeader() {
           </div>
         </div>
       </header>
-
-      {/* Alert Banner */}
-      <div className="container px-2 my-1.5">
-        <NewsMarquee />
-      </div>
     </>
   )
 }

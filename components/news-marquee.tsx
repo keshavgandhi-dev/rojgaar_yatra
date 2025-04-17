@@ -13,22 +13,22 @@ export default function NewsMarquee() {
   ]
 
   return (
-    <div className="bg-red-50 dark:bg-red-950 rounded-lg p-2 flex items-center overflow-hidden">
-      <div className="flex-shrink-0 bg-red-600 text-white p-1.5 rounded-md mr-3">
-        <AlertCircle className="h-4 w-4" />
+    <div className="bg-red-50 dark:bg-red-950 rounded-lg p-1.5 md:p-2 flex items-center overflow-hidden">
+      <div className="flex-shrink-0 bg-red-600 text-white p-1 md:p-1.5 rounded-md mr-2 md:mr-3">
+        <AlertCircle className="h-3 w-3 md:h-4 md:w-4" />
       </div>
       <div className="overflow-hidden relative w-full">
         <motion.div
           animate={{ x: "-100%" }}
           transition={{
             ease: "linear",
-            duration: 20,
+            duration: 15,
             repeat: Number.POSITIVE_INFINITY,
           }}
-          className="whitespace-nowrap"
+          className="whitespace-nowrap text-xs md:text-sm"
         >
           {news.map((item, index) => (
-            <span key={index} className="inline-block mx-4">
+            <span key={index} className="inline-block mx-2 md:mx-4">
               {item}
             </span>
           ))}

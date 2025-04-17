@@ -11,6 +11,7 @@ import { TestimonialCard } from "@/components/testimonial-card"
 import { FAQSection } from "@/components/faq-section"
 import { AnimatedCounter } from "@/components/animated-counter"
 import { motion } from "framer-motion"
+import { SiteHeader } from "@/components/mobile/layout/site-header"
 
 export default function Home() {
   const container = {
@@ -30,54 +31,41 @@ export default function Home() {
 
   return (
     <>
+      <SiteHeader />
+      
       {/* Hero Section */}
-      <section className="py-6 sm:py-8 md:py-12 bg-gradient-to-b from-gray-50 to-white dark:from-muted/50 dark:to-background relative overflow-hidden">
+      <section className="pt-2 pb-4 sm:py-8 md:py-12 bg-gradient-to-b from-gray-50 to-white dark:from-muted/50 dark:to-background relative overflow-hidden">
         <div className="absolute inset-0 bg-grid-gray-100/50 dark:bg-grid-gray-800/20 [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)]"></div>
         <div className="container px-3 sm:px-4 relative z-10">
-          <div className="flex flex-col items-center text-center space-y-3 sm:space-y-4">
-            <motion.div
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-              className="space-y-2"
-            >
-              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tighter">
+          <div className="flex flex-col items-center text-center space-y-1 sm:space-y-4">
+            <div className="space-y-0">
+              <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tighter">
                 <span className="text-red-600 bg-gradient-to-r from-red-600 via-red-700 to-red-800 bg-clip-text text-transparent animate-gradient dark:text-red-500 dark:bg-none">India's No.1</span>
               </h1>
               <TypewriterEffect words={["Job Portal", "Sarkari Result Hub", "Exam Guide", "Career Builder"]} />
-            </motion.div>
-            <motion.p
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-              className="max-w-[700px] text-gray-600 text-sm sm:text-base md:text-xl px-2 dark:text-gray-300"
-            >
+            </div>
+            <p className="max-w-[700px] text-gray-600 text-sm sm:text-base md:text-xl px-2 dark:text-gray-300">
               Your one-stop destination for all government job updates, results, admit cards, and more.
-            </motion.p>
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.3 }}
-              className="w-full max-w-2xl flex flex-col sm:flex-row gap-2 px-2"
-            >
+            </p>
+            <div className="w-full max-w-xl flex flex-col sm:flex-row gap-1.5 px-2">
               <div className="relative flex-1">
-                <Search className="absolute left-3 top-3 h-5 w-5 text-gray-400 dark:text-gray-500" />
+                <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-gray-400 dark:text-gray-500" />
                 <Input
                   type="search"
                   placeholder="Search jobs by title, location, qualification..."
-                  className="pl-10 h-11 text-base border-gray-200 focus:border-red-500 focus:ring-red-500 bg-white dark:bg-muted/30 dark:border-gray-800 dark:text-gray-100 dark:placeholder:text-gray-500 shadow-sm hover:shadow-md transition-shadow"
+                  className="pl-8 h-9 text-sm border-gray-200 focus:border-red-500 focus:ring-red-500 bg-white dark:bg-muted/30 dark:border-gray-800 dark:text-gray-100 dark:placeholder:text-gray-500 shadow-sm hover:shadow-md transition-shadow"
                 />
               </div>
-              <Button type="submit" className="h-11 text-base bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 shadow-md dark:bg-red-800 dark:hover:bg-red-700 dark:shadow-none transition-all hover:scale-[1.02]">
+              <Button type="submit" className="h-9 text-sm bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 shadow-md dark:bg-red-800 dark:hover:bg-red-700 dark:shadow-none transition-all hover:scale-[1.02]">
                 Search Jobs
               </Button>
-            </motion.div>
+            </div>
           </div>
         </div>
       </section>
 
       {/* Stats Section */}
-      <section className="py-3 border-t border-b border-gray-100 dark:border-gray-800 dark:bg-muted/30 relative">
+      <section className="py-3 border-t border-b border-gray-100 dark:border-gray-800 dark:bg-muted/30 relative hidden sm:block">
         <div className="absolute inset-0 bg-grid-gray-100/30 dark:bg-grid-gray-800/10 [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)]"></div>
         <div className="container px-2 relative z-10">
           <div className="flex justify-center">
@@ -145,271 +133,279 @@ export default function Home() {
       </section>
 
       {/* Quick Access Sections */}
-      <section className="py-2 bg-gray-50 dark:bg-muted/30 relative">
+      <section className="py-4 bg-gradient-to-b from-gray-50 via-white to-gray-50 dark:from-muted/30 dark:via-background dark:to-muted/30 relative overflow-hidden">
         <div className="absolute inset-0 bg-grid-gray-100/30 dark:bg-grid-gray-800/10 [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)]"></div>
         <div className="container px-2 relative z-10">
           {/* Mobile Only Heading */}
           <div className="block md:hidden">
-            <h2 className="text-xl font-bold tracking-tighter text-center mb-2 text-gray-800 dark:text-gray-100">Job Access</h2>
+            <h2 className="text-2xl font-bold tracking-tighter text-center mb-4 text-gray-800 dark:text-gray-100 relative">
+              Quick Access
+              <span className="absolute -bottom-1 left-1/2 transform -translate-x-1/2 w-16 h-0.5 bg-gradient-to-r from-red-600 to-red-700 rounded-full"></span>
+            </h2>
           </div>
           {/* Desktop Only Heading */}
           <div className="hidden md:block">
-            <h2 className="text-xl font-bold tracking-tighter text-center mb-2 text-gray-800 dark:text-gray-100">Quick Access</h2>
+            <h2 className="text-2xl font-bold tracking-tighter text-center mb-4 text-gray-800 dark:text-gray-100 relative">
+              Quick Access
+              <span className="absolute -bottom-1 left-1/2 transform -translate-x-1/2 w-16 h-0.5 bg-gradient-to-r from-red-600 to-red-700 rounded-full"></span>
+            </h2>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
             {/* Latest Jobs */}
-            <Card className="transition-all hover:shadow-lg border-gray-200 dark:border-gray-800 dark:bg-muted/30 hover:border-red-200 dark:hover:border-red-800">
-              <CardHeader className="bg-gradient-to-r from-red-600 to-red-700 text-white rounded-t-lg p-2 dark:bg-red-800">
-                <CardTitle className="flex items-center text-sm font-bold">Latest Jobs</CardTitle>
+            <div className="group relative">
+              <div className="absolute -inset-0.5 bg-gradient-to-r from-red-600 to-red-700 rounded-lg blur opacity-25 group-hover:opacity-75 transition duration-1000 group-hover:duration-200"></div>
+              <Card className="relative bg-white/80 dark:bg-muted/30 backdrop-blur-sm border-0 shadow-lg hover:shadow-xl transition-all duration-300 group-hover:scale-[1.02]">
+                <CardHeader className="bg-gradient-to-r from-red-600 to-red-700 text-white rounded-t-lg p-3 dark:bg-red-800">
+                  <CardTitle className="flex items-center justify-between">
+                    <span className="text-base font-bold">Latest Jobs</span>
+                    <span className="text-xs bg-white/20 px-2 py-1 rounded-full">New Updates</span>
+                  </CardTitle>
               </CardHeader>
-              <CardContent className="pt-2 px-1.5">
-                <div className="grid grid-cols-2 gap-1.5">
-                  <div className="bg-white dark:bg-muted/30 border border-gray-200 rounded-lg p-2 transition-all hover:border-red-500 hover:shadow-sm dark:border-gray-800 dark:hover:border-red-600 hover:scale-[1.02]">
+                <CardContent className="pt-3 px-2">
+                  <div className="grid grid-cols-2 gap-2">
+                    <div className="bg-white/50 dark:bg-muted/50 backdrop-blur-sm border border-gray-200/50 dark:border-gray-800/50 rounded-lg p-2.5 transition-all hover:border-red-500/50 hover:shadow-md dark:hover:border-red-600/50 hover:scale-[1.02]">
                     <Link href="#" className="block">
-                      <div className="flex justify-between items-start mb-1">
-                        <Badge variant="outline" className="bg-gray-100 text-gray-700 text-[10px] px-1.5 py-0 border-gray-300 dark:bg-gray-800 dark:text-gray-100 dark:border-gray-700">UPSC</Badge>
-                        <Badge variant="outline" className="bg-red-100 text-red-700 text-[10px] px-1.5 py-0 border-red-300 dark:bg-red-900 dark:text-red-100 dark:border-red-800">Closing Soon</Badge>
+                        <div className="flex justify-between items-start mb-1.5">
+                          <Badge variant="outline" className="bg-gray-100/80 text-gray-700 text-[10px] px-2 py-0.5 border-gray-300/50 dark:bg-gray-800/50 dark:text-gray-100 dark:border-gray-700/50 backdrop-blur-sm">UPSC</Badge>
+                          <Badge variant="outline" className="bg-red-100/80 text-red-700 text-[10px] px-2 py-0.5 border-red-300/50 dark:bg-red-900/50 dark:text-red-100 dark:border-red-800/50 backdrop-blur-sm">Closing Soon</Badge>
                       </div>
                       <div className="font-medium text-xs hover:text-red-600 transition-colors dark:text-gray-100 dark:hover:text-red-400">UPSC Civil Services 2025</div>
-                      <div className="text-[10px] text-gray-500 dark:text-gray-400 mt-0.5">Last Date: 15 Apr 2025</div>
-                      <div className="text-[10px] text-red-600 font-medium mt-0.5 dark:text-red-400">1200 Vacancies</div>
+                        <div className="text-[10px] text-gray-500 dark:text-gray-400 mt-1">Last Date: 15 Apr 2025</div>
+                        <div className="text-[10px] text-red-600 font-medium mt-1 dark:text-red-400">1200 Vacancies</div>
                     </Link>
                   </div>
-                  <div className="bg-white dark:bg-muted/30 border border-gray-200 rounded-lg p-2 transition-all hover:border-red-500 hover:shadow-sm dark:border-gray-800 dark:hover:border-red-600 hover:scale-[1.02]">
+                    <div className="bg-white/50 dark:bg-muted/50 backdrop-blur-sm border border-gray-200/50 dark:border-gray-800/50 rounded-lg p-2.5 transition-all hover:border-red-500/50 hover:shadow-md dark:hover:border-red-600/50 hover:scale-[1.02]">
                     <Link href="#" className="block">
-                      <div className="flex justify-between items-start mb-1">
-                        <Badge variant="outline" className="bg-gray-100 text-gray-700 text-[10px] px-1.5 py-0 border-gray-300 dark:bg-gray-800 dark:text-gray-100 dark:border-gray-700">SSC</Badge>
-                        <Badge variant="outline" className="bg-green-100 text-green-700 text-[10px] px-1.5 py-0 border-green-300 dark:bg-green-900 dark:text-green-100 dark:border-green-800">New</Badge>
+                        <div className="flex justify-between items-start mb-1.5">
+                          <Badge variant="outline" className="bg-gray-100/80 text-gray-700 text-[10px] px-2 py-0.5 border-gray-300/50 dark:bg-gray-800/50 dark:text-gray-100 dark:border-gray-700/50 backdrop-blur-sm">SSC</Badge>
+                          <Badge variant="outline" className="bg-green-100/80 text-green-700 text-[10px] px-2 py-0.5 border-green-300/50 dark:bg-green-900/50 dark:text-green-100 dark:border-green-800/50 backdrop-blur-sm">New</Badge>
                       </div>
                       <div className="font-medium text-xs hover:text-red-600 transition-colors dark:text-gray-100 dark:hover:text-red-400">SSC CGL 2025</div>
-                      <div className="text-[10px] text-gray-500 dark:text-gray-400 mt-0.5">Last Date: 30 Mar 2025</div>
-                      <div className="text-[10px] text-red-600 font-medium mt-0.5 dark:text-red-400">5000 Vacancies</div>
+                        <div className="text-[10px] text-gray-500 dark:text-gray-400 mt-1">Last Date: 30 Mar 2025</div>
+                        <div className="text-[10px] text-red-600 font-medium mt-1 dark:text-red-400">5000 Vacancies</div>
                     </Link>
                   </div>
-                  <div className="bg-white dark:bg-muted/30 border border-gray-200 rounded-lg p-2 transition-all hover:border-red-500 hover:shadow-sm dark:border-gray-800 dark:hover:border-red-600 hover:scale-[1.02]">
+                    <div className="bg-white/50 dark:bg-muted/50 backdrop-blur-sm border border-gray-200/50 dark:border-gray-800/50 rounded-lg p-2.5 transition-all hover:border-red-500/50 hover:shadow-md dark:hover:border-red-600/50 hover:scale-[1.02]">
                     <Link href="#" className="block">
-                      <div className="flex justify-between items-start mb-1">
-                        <Badge variant="outline" className="bg-gray-100 text-gray-700 text-[10px] px-1.5 py-0 border-gray-300 dark:bg-gray-800 dark:text-gray-100 dark:border-gray-700">Banking</Badge>
-                        <Badge variant="outline" className="bg-green-100 text-green-700 text-[10px] px-1.5 py-0 border-green-300 dark:bg-green-900 dark:text-green-100 dark:border-green-800">New</Badge>
+                        <div className="flex justify-between items-start mb-1.5">
+                          <Badge variant="outline" className="bg-gray-100/80 text-gray-700 text-[10px] px-2 py-0.5 border-gray-300/50 dark:bg-gray-800/50 dark:text-gray-100 dark:border-gray-700/50 backdrop-blur-sm">Banking</Badge>
+                          <Badge variant="outline" className="bg-green-100/80 text-green-700 text-[10px] px-2 py-0.5 border-green-300/50 dark:bg-green-900/50 dark:text-green-100 dark:border-green-800/50 backdrop-blur-sm">New</Badge>
                       </div>
                       <div className="font-medium text-xs hover:text-red-600 transition-colors dark:text-gray-100 dark:hover:text-red-400">IBPS PO 2025</div>
-                      <div className="text-[10px] text-gray-500 dark:text-gray-400 mt-0.5">Last Date: 20 May 2025</div>
-                      <div className="text-[10px] text-red-600 font-medium mt-0.5 dark:text-red-400">3500 Vacancies</div>
+                        <div className="text-[10px] text-gray-500 dark:text-gray-400 mt-1">Last Date: 20 May 2025</div>
+                        <div className="text-[10px] text-red-600 font-medium mt-1 dark:text-red-400">3500 Vacancies</div>
                     </Link>
                   </div>
-                  <div className="bg-white dark:bg-muted/30 border border-gray-200 rounded-lg p-2 transition-all hover:border-red-500 hover:shadow-sm dark:border-gray-800 dark:hover:border-red-600 hover:scale-[1.02]">
+                    <div className="bg-white/50 dark:bg-muted/50 backdrop-blur-sm border border-gray-200/50 dark:border-gray-800/50 rounded-lg p-2.5 transition-all hover:border-red-500/50 hover:shadow-md dark:hover:border-red-600/50 hover:scale-[1.02]">
                     <Link href="#" className="block">
-                      <div className="flex justify-between items-start mb-1">
-                        <Badge variant="outline" className="bg-gray-100 text-gray-700 text-[10px] px-1.5 py-0 border-gray-300 dark:bg-gray-800 dark:text-gray-100 dark:border-gray-700">Railway</Badge>
-                        <Badge variant="outline" className="bg-red-100 text-red-700 text-[10px] px-1.5 py-0 border-red-300 dark:bg-red-900 dark:text-red-100 dark:border-red-800">Closing Soon</Badge>
+                        <div className="flex justify-between items-start mb-1.5">
+                          <Badge variant="outline" className="bg-gray-100/80 text-gray-700 text-[10px] px-2 py-0.5 border-gray-300/50 dark:bg-gray-800/50 dark:text-gray-100 dark:border-gray-700/50 backdrop-blur-sm">Railway</Badge>
+                          <Badge variant="outline" className="bg-red-100/80 text-red-700 text-[10px] px-2 py-0.5 border-red-300/50 dark:bg-red-900/50 dark:text-red-100 dark:border-red-800/50 backdrop-blur-sm">Closing Soon</Badge>
                       </div>
                       <div className="font-medium text-xs hover:text-red-600 transition-colors dark:text-gray-100 dark:hover:text-red-400">RRB NTPC 2025</div>
-                      <div className="text-[10px] text-gray-500 dark:text-gray-400 mt-0.5">Last Date: 10 Apr 2025</div>
-                      <div className="text-[10px] text-red-600 font-medium mt-0.5 dark:text-red-400">10000 Vacancies</div>
+                        <div className="text-[10px] text-gray-500 dark:text-gray-400 mt-1">Last Date: 10 Apr 2025</div>
+                        <div className="text-[10px] text-red-600 font-medium mt-1 dark:text-red-400">10000 Vacancies</div>
                     </Link>
                   </div>
-                  <div className="bg-white dark:bg-muted/30 border border-gray-200 rounded-lg p-2 transition-all hover:border-red-500 hover:shadow-sm dark:border-gray-800 dark:hover:border-red-600 hover:scale-[1.02]">
-                    <Link href="#" className="block">
-                      <div className="flex justify-between items-start mb-1">
-                        <Badge variant="outline" className="bg-gray-100 text-gray-700 text-[10px] px-1.5 py-0 border-gray-300 dark:bg-gray-800 dark:text-gray-100 dark:border-gray-700">Banking</Badge>
-                        <Badge variant="outline" className="bg-green-100 text-green-700 text-[10px] px-1.5 py-0 border-green-300 dark:bg-green-900 dark:text-green-100 dark:border-green-800">New</Badge>
-                      </div>
-                      <div className="font-medium text-xs hover:text-red-600 transition-colors dark:text-gray-100 dark:hover:text-red-400">SBI PO 2025</div>
-                      <div className="text-[10px] text-gray-500 dark:text-gray-400 mt-0.5">Last Date: 25 Mar 2025</div>
-                      <div className="text-[10px] text-red-600 font-medium mt-0.5 dark:text-red-400">2000 Vacancies</div>
-                    </Link>
                   </div>
-                  <div className="bg-white dark:bg-muted/30 border border-gray-200 rounded-lg p-2 transition-all hover:border-red-500 hover:shadow-sm dark:border-gray-800 dark:hover:border-red-600 hover:scale-[1.02]">
-                    <Link href="#" className="block">
-                      <div className="flex justify-between items-start mb-1">
-                        <Badge variant="outline" className="bg-gray-100 text-gray-700 text-[10px] px-1.5 py-0 border-gray-300 dark:bg-gray-800 dark:text-gray-100 dark:border-gray-700">UPSC</Badge>
-                        <Badge variant="outline" className="bg-green-100 text-green-700 text-[10px] px-1.5 py-0 border-green-300 dark:bg-green-900 dark:text-green-100 dark:border-green-800">New</Badge>
-                      </div>
-                      <div className="font-medium text-xs hover:text-red-600 transition-colors dark:text-gray-100 dark:hover:text-red-400">UPSC CAPF 2025</div>
-                      <div className="text-[10px] text-gray-500 dark:text-gray-400 mt-0.5">Last Date: 05 May 2025</div>
-                      <div className="text-[10px] text-red-600 font-medium mt-0.5 dark:text-red-400">800 Vacancies</div>
-                    </Link>
-                  </div>
-                </div>
-                <Button variant="outline" className="w-full mt-2 h-7 text-xs hover:bg-red-600 hover:text-white transition-colors border-gray-300 dark:border-gray-700 dark:bg-muted/30 dark:text-gray-100 dark:hover:bg-red-800 dark:hover:text-white" asChild>
+                  <Button variant="outline" className="w-full mt-3 h-8 text-xs hover:bg-red-600 hover:text-white transition-colors border-gray-300 dark:border-gray-700 dark:bg-muted/30 dark:text-gray-100 dark:hover:bg-red-800 dark:hover:text-white" asChild>
                   <Link href="/jobs">View All Jobs</Link>
                 </Button>
               </CardContent>
             </Card>
+            </div>
 
             {/* Admit Cards */}
-            <Card className="transition-all hover:shadow-lg border-gray-200 dark:border-gray-800 dark:bg-muted/30 hover:border-red-200 dark:hover:border-red-800">
-              <CardHeader className="bg-gradient-to-r from-red-600 to-red-700 text-white rounded-t-lg p-2 dark:bg-red-800">
-                <CardTitle className="flex items-center text-sm font-bold">Admit Cards</CardTitle>
+            <div className="group relative">
+              <div className="absolute -inset-0.5 bg-gradient-to-r from-red-600 to-red-700 rounded-lg blur opacity-25 group-hover:opacity-75 transition duration-1000 group-hover:duration-200"></div>
+              <Card className="relative bg-white/80 dark:bg-muted/30 backdrop-blur-sm border-0 shadow-lg hover:shadow-xl transition-all duration-300 group-hover:scale-[1.02]">
+                <CardHeader className="bg-gradient-to-r from-red-600 to-red-700 text-white rounded-t-lg p-3 dark:bg-red-800">
+                  <CardTitle className="flex items-center justify-between">
+                    <span className="text-base font-bold">Admit Cards</span>
+                    <span className="text-xs bg-white/20 px-2 py-1 rounded-full">New Updates</span>
+                  </CardTitle>
               </CardHeader>
-              <CardContent className="pt-2 px-1.5">
-                <div className="grid grid-cols-2 gap-1.5">
-                  <div className="bg-white dark:bg-muted/30 border border-gray-200 rounded-lg p-2 transition-all hover:border-red-500 hover:shadow-sm dark:border-gray-800 dark:hover:border-red-600 hover:scale-[1.02]">
+                <CardContent className="pt-3 px-2">
+                  <div className="grid grid-cols-2 gap-2">
+                    <div className="bg-white/50 dark:bg-muted/50 backdrop-blur-sm border border-gray-200/50 dark:border-gray-800/50 rounded-lg p-2.5 transition-all hover:border-red-500/50 hover:shadow-md dark:hover:border-red-600/50 hover:scale-[1.02]">
                     <Link href="#" className="block">
-                      <div className="flex justify-between items-start mb-1">
-                        <Badge variant="outline" className="bg-gray-100 text-gray-700 text-[10px] px-1.5 py-0 border-gray-300 dark:bg-gray-800 dark:text-gray-100 dark:border-gray-700">SSC</Badge>
-                        <Badge variant="outline" className="bg-red-100 text-red-700 text-[10px] px-1.5 py-0 border-red-300 dark:bg-red-900 dark:text-red-100 dark:border-red-800">Closing Soon</Badge>
+                        <div className="flex justify-between items-start mb-1.5">
+                          <Badge variant="outline" className="bg-gray-100/80 text-gray-700 text-[10px] px-2 py-0.5 border-gray-300/50 dark:bg-gray-800/50 dark:text-gray-100 dark:border-gray-700/50 backdrop-blur-sm">SSC</Badge>
+                          <Badge variant="outline" className="bg-red-100/80 text-red-700 text-[10px] px-2 py-0.5 border-red-300/50 dark:bg-red-900/50 dark:text-red-100 dark:border-red-800/50 backdrop-blur-sm">Closing Soon</Badge>
                       </div>
                       <div className="font-medium text-xs hover:text-red-600 transition-colors dark:text-gray-100 dark:hover:text-red-400">SSC CHSL 2024</div>
-                      <div className="text-[10px] text-gray-500 dark:text-gray-400 mt-0.5">Exam Date: 15 Mar 2025</div>
-                      <div className="text-[10px] text-red-600 font-medium mt-0.5 dark:text-red-400">Download: 01 Mar 2025</div>
+                        <div className="text-[10px] text-gray-500 dark:text-gray-400 mt-1">Exam Date: 15 Mar 2025</div>
+                        <div className="text-[10px] text-red-600 font-medium mt-1 dark:text-red-400">Download: 01 Mar 2025</div>
                     </Link>
                   </div>
-                  <div className="bg-white dark:bg-muted/30 border border-gray-200 rounded-lg p-2 transition-all hover:border-red-500 hover:shadow-sm dark:border-gray-800 dark:hover:border-red-600 hover:scale-[1.02]">
+                    <div className="bg-white/50 dark:bg-muted/50 backdrop-blur-sm border border-gray-200/50 dark:border-gray-800/50 rounded-lg p-2.5 transition-all hover:border-red-500/50 hover:shadow-md dark:hover:border-red-600/50 hover:scale-[1.02]">
                     <Link href="#" className="block">
-                      <div className="flex justify-between items-start mb-1">
-                        <Badge variant="outline" className="bg-gray-100 text-gray-700 text-[10px] px-1.5 py-0 border-gray-300 dark:bg-gray-800 dark:text-gray-100 dark:border-gray-700">RRB</Badge>
-                        <Badge variant="outline" className="bg-green-100 text-green-700 text-[10px] px-1.5 py-0 border-green-300 dark:bg-green-900 dark:text-green-100 dark:border-green-800">New</Badge>
+                        <div className="flex justify-between items-start mb-1.5">
+                          <Badge variant="outline" className="bg-gray-100/80 text-gray-700 text-[10px] px-2 py-0.5 border-gray-300/50 dark:bg-gray-800/50 dark:text-gray-100 dark:border-gray-700/50 backdrop-blur-sm">RRB</Badge>
+                          <Badge variant="outline" className="bg-green-100/80 text-green-700 text-[10px] px-2 py-0.5 border-green-300/50 dark:bg-green-900/50 dark:text-green-100 dark:border-green-800/50 backdrop-blur-sm">New</Badge>
                       </div>
                       <div className="font-medium text-xs hover:text-red-600 transition-colors dark:text-gray-100 dark:hover:text-red-400">RRB NTPC 2024</div>
-                      <div className="text-[10px] text-gray-500 dark:text-gray-400 mt-0.5">Exam Date: 25 Mar 2025</div>
-                      <div className="text-[10px] text-red-600 font-medium mt-0.5 dark:text-red-400">Download: 10 Mar 2025</div>
+                        <div className="text-[10px] text-gray-500 dark:text-gray-400 mt-1">Exam Date: 25 Mar 2025</div>
+                        <div className="text-[10px] text-red-600 font-medium mt-1 dark:text-red-400">Download: 10 Mar 2025</div>
                     </Link>
                   </div>
-                  <div className="bg-white dark:bg-muted/30 border border-gray-200 rounded-lg p-2 transition-all hover:border-red-500 hover:shadow-sm dark:border-gray-800 dark:hover:border-red-600 hover:scale-[1.02]">
+                    <div className="bg-white/50 dark:bg-muted/50 backdrop-blur-sm border border-gray-200/50 dark:border-gray-800/50 rounded-lg p-2.5 transition-all hover:border-red-500/50 hover:shadow-md dark:hover:border-red-600/50 hover:scale-[1.02]">
                     <Link href="#" className="block">
-                      <div className="flex justify-between items-start mb-1">
-                        <Badge variant="outline" className="bg-gray-100 text-gray-700 text-[10px] px-1.5 py-0 border-gray-300 dark:bg-gray-800 dark:text-gray-100 dark:border-gray-700">UPSC</Badge>
-                        <Badge variant="outline" className="bg-green-100 text-green-700 text-[10px] px-1.5 py-0 border-green-300 dark:bg-green-900 dark:text-green-100 dark:border-green-800">New</Badge>
+                        <div className="flex justify-between items-start mb-1.5">
+                          <Badge variant="outline" className="bg-gray-100/80 text-gray-700 text-[10px] px-2 py-0.5 border-gray-300/50 dark:bg-gray-800/50 dark:text-gray-100 dark:border-gray-700/50 backdrop-blur-sm">UPSC</Badge>
+                          <Badge variant="outline" className="bg-green-100/80 text-green-700 text-[10px] px-2 py-0.5 border-green-300/50 dark:bg-green-900/50 dark:text-green-100 dark:border-green-800/50 backdrop-blur-sm">New</Badge>
                       </div>
                       <div className="font-medium text-xs hover:text-red-600 transition-colors dark:text-gray-100 dark:hover:text-red-400">UPSC CSE 2024</div>
-                      <div className="text-[10px] text-gray-500 dark:text-gray-400 mt-0.5">Exam Date: 05 Apr 2025</div>
-                      <div className="text-[10px] text-red-600 font-medium mt-0.5 dark:text-red-400">Download: 20 Mar 2025</div>
+                        <div className="text-[10px] text-gray-500 dark:text-gray-400 mt-1">Exam Date: 05 Apr 2025</div>
+                        <div className="text-[10px] text-red-600 font-medium mt-1 dark:text-red-400">Download: 20 Mar 2025</div>
                     </Link>
                   </div>
-                  <div className="bg-white dark:bg-muted/30 border border-gray-200 rounded-lg p-2 transition-all hover:border-red-500 hover:shadow-sm dark:border-gray-800 dark:hover:border-red-600 hover:scale-[1.02]">
+                    <div className="bg-white/50 dark:bg-muted/50 backdrop-blur-sm border border-gray-200/50 dark:border-gray-800/50 rounded-lg p-2.5 transition-all hover:border-red-500/50 hover:shadow-md dark:hover:border-red-600/50 hover:scale-[1.02]">
                     <Link href="#" className="block">
-                      <div className="flex justify-between items-start mb-1">
-                        <Badge variant="outline" className="bg-gray-100 text-gray-700 text-[10px] px-1.5 py-0 border-gray-300 dark:bg-gray-800 dark:text-gray-100 dark:border-gray-700">Banking</Badge>
-                        <Badge variant="outline" className="bg-red-100 text-red-700 text-[10px] px-1.5 py-0 border-red-300 dark:bg-red-900 dark:text-red-100 dark:border-red-800">Closing Soon</Badge>
+                        <div className="flex justify-between items-start mb-1.5">
+                          <Badge variant="outline" className="bg-gray-100/80 text-gray-700 text-[10px] px-2 py-0.5 border-gray-300/50 dark:bg-gray-800/50 dark:text-gray-100 dark:border-gray-700/50 backdrop-blur-sm">Banking</Badge>
+                          <Badge variant="outline" className="bg-red-100/80 text-red-700 text-[10px] px-2 py-0.5 border-red-300/50 dark:bg-red-900/50 dark:text-red-100 dark:border-red-800/50 backdrop-blur-sm">Closing Soon</Badge>
                       </div>
                       <div className="font-medium text-xs hover:text-red-600 transition-colors dark:text-gray-100 dark:hover:text-red-400">IBPS PO 2024</div>
-                      <div className="text-[10px] text-gray-500 dark:text-gray-400 mt-0.5">Exam Date: 10 Apr 2025</div>
-                      <div className="text-[10px] text-red-600 font-medium mt-0.5 dark:text-red-400">Download: 25 Mar 2025</div>
+                        <div className="text-[10px] text-gray-500 dark:text-gray-400 mt-1">Exam Date: 10 Apr 2025</div>
+                        <div className="text-[10px] text-red-600 font-medium mt-1 dark:text-red-400">Download: 25 Mar 2025</div>
                     </Link>
                   </div>
                 </div>
-                <Button variant="outline" className="w-full mt-2 h-7 text-xs hover:bg-red-600 hover:text-white transition-colors border-gray-300 dark:border-gray-700 dark:bg-muted/30 dark:text-gray-100 dark:hover:bg-red-800 dark:hover:text-white" asChild>
+                  <Button variant="outline" className="w-full mt-3 h-8 text-xs hover:bg-red-600 hover:text-white transition-colors border-gray-300 dark:border-gray-700 dark:bg-muted/30 dark:text-gray-100 dark:hover:bg-red-800 dark:hover:text-white" asChild>
                   <Link href="/admit-card">View All Admit Cards</Link>
                 </Button>
               </CardContent>
             </Card>
+            </div>
 
             {/* Results */}
-            <Card className="transition-all hover:shadow-lg border-gray-200 dark:border-gray-800 dark:bg-muted/30 hover:border-red-200 dark:hover:border-red-800">
-              <CardHeader className="bg-gradient-to-r from-red-600 to-red-700 text-white rounded-t-lg p-2 dark:bg-red-800">
-                <CardTitle className="flex items-center text-sm font-bold">Results</CardTitle>
+            <div className="group relative">
+              <div className="absolute -inset-0.5 bg-gradient-to-r from-red-600 to-red-700 rounded-lg blur opacity-25 group-hover:opacity-75 transition duration-1000 group-hover:duration-200"></div>
+              <Card className="relative bg-white/80 dark:bg-muted/30 backdrop-blur-sm border-0 shadow-lg hover:shadow-xl transition-all duration-300 group-hover:scale-[1.02]">
+                <CardHeader className="bg-gradient-to-r from-red-600 to-red-700 text-white rounded-t-lg p-3 dark:bg-red-800">
+                  <CardTitle className="flex items-center justify-between">
+                    <span className="text-base font-bold">Results</span>
+                    <span className="text-xs bg-white/20 px-2 py-1 rounded-full">New Updates</span>
+                  </CardTitle>
               </CardHeader>
-              <CardContent className="pt-2 px-1.5">
-                <div className="grid grid-cols-2 gap-1.5">
-                  <div className="bg-white dark:bg-muted/30 border border-gray-200 rounded-lg p-2 transition-all hover:border-red-500 hover:shadow-sm dark:border-gray-800 dark:hover:border-red-600 hover:scale-[1.02]">
+                <CardContent className="pt-3 px-2">
+                  <div className="grid grid-cols-2 gap-2">
+                    <div className="bg-white/50 dark:bg-muted/50 backdrop-blur-sm border border-gray-200/50 dark:border-gray-800/50 rounded-lg p-2.5 transition-all hover:border-red-500/50 hover:shadow-md dark:hover:border-red-600/50 hover:scale-[1.02]">
                     <Link href="#" className="block">
-                      <div className="flex justify-between items-start mb-1">
-                        <Badge variant="outline" className="bg-gray-100 text-gray-700 text-[10px] px-1.5 py-0 border-gray-300 dark:bg-gray-800 dark:text-gray-100 dark:border-gray-700">UPSC</Badge>
-                        <Badge variant="outline" className="bg-green-100 text-green-700 text-[10px] px-1.5 py-0 border-green-300 dark:bg-green-900 dark:text-green-100 dark:border-green-800">New</Badge>
+                        <div className="flex justify-between items-start mb-1.5">
+                          <Badge variant="outline" className="bg-gray-100/80 text-gray-700 text-[10px] px-2 py-0.5 border-gray-300/50 dark:bg-gray-800/50 dark:text-gray-100 dark:border-gray-700/50 backdrop-blur-sm">UPSC</Badge>
+                          <Badge variant="outline" className="bg-green-100/80 text-green-700 text-[10px] px-2 py-0.5 border-green-300/50 dark:bg-green-900/50 dark:text-green-100 dark:border-green-800/50 backdrop-blur-sm">New</Badge>
                       </div>
                       <div className="font-medium text-xs hover:text-red-600 transition-colors dark:text-gray-100 dark:hover:text-red-400">UPSC CSE 2024</div>
-                      <div className="text-[10px] text-gray-500 dark:text-gray-400 mt-0.5">Released: 10 Feb 2025</div>
-                      <div className="text-[10px] text-red-600 font-medium mt-0.5 dark:text-red-400">Cutoff: 950</div>
+                        <div className="text-[10px] text-gray-500 dark:text-gray-400 mt-1">Released: 10 Feb 2025</div>
+                        <div className="text-[10px] text-red-600 font-medium mt-1 dark:text-red-400">Cutoff: 950</div>
                     </Link>
                   </div>
-                  <div className="bg-white dark:bg-muted/30 border border-gray-200 rounded-lg p-2 transition-all hover:border-red-500 hover:shadow-sm dark:border-gray-800 dark:hover:border-red-600 hover:scale-[1.02]">
+                    <div className="bg-white/50 dark:bg-muted/50 backdrop-blur-sm border border-gray-200/50 dark:border-gray-800/50 rounded-lg p-2.5 transition-all hover:border-red-500/50 hover:shadow-md dark:hover:border-red-600/50 hover:scale-[1.02]">
                     <Link href="#" className="block">
-                      <div className="flex justify-between items-start mb-1">
-                        <Badge variant="outline" className="bg-gray-100 text-gray-700 text-[10px] px-1.5 py-0 border-gray-300 dark:bg-gray-800 dark:text-gray-100 dark:border-gray-700">SSC</Badge>
-                        <Badge variant="outline" className="bg-green-100 text-green-700 text-[10px] px-1.5 py-0 border-green-300 dark:bg-green-900 dark:text-green-100 dark:border-green-800">New</Badge>
+                        <div className="flex justify-between items-start mb-1.5">
+                          <Badge variant="outline" className="bg-gray-100/80 text-gray-700 text-[10px] px-2 py-0.5 border-gray-300/50 dark:bg-gray-800/50 dark:text-gray-100 dark:border-gray-700/50 backdrop-blur-sm">SSC</Badge>
+                          <Badge variant="outline" className="bg-green-100/80 text-green-700 text-[10px] px-2 py-0.5 border-green-300/50 dark:bg-green-900/50 dark:text-green-100 dark:border-green-800/50 backdrop-blur-sm">New</Badge>
                       </div>
                       <div className="font-medium text-xs hover:text-red-600 transition-colors dark:text-gray-100 dark:hover:text-red-400">SSC GD 2024</div>
-                      <div className="text-[10px] text-gray-500 dark:text-gray-400 mt-0.5">Released: 05 Feb 2025</div>
-                      <div className="text-[10px] text-red-600 font-medium mt-0.5 dark:text-red-400">Cutoff: 85%</div>
+                        <div className="text-[10px] text-gray-500 dark:text-gray-400 mt-1">Released: 05 Feb 2025</div>
+                        <div className="text-[10px] text-red-600 font-medium mt-1 dark:text-red-400">Cutoff: 85%</div>
                     </Link>
                   </div>
-                  <div className="bg-white dark:bg-muted/30 border border-gray-200 rounded-lg p-2 transition-all hover:border-red-500 hover:shadow-sm dark:border-gray-800 dark:hover:border-red-600 hover:scale-[1.02]">
+                    <div className="bg-white/50 dark:bg-muted/50 backdrop-blur-sm border border-gray-200/50 dark:border-gray-800/50 rounded-lg p-2.5 transition-all hover:border-red-500/50 hover:shadow-md dark:hover:border-red-600/50 hover:scale-[1.02]">
                     <Link href="#" className="block">
-                      <div className="flex justify-between items-start mb-1">
-                        <Badge variant="outline" className="bg-gray-100 text-gray-700 text-[10px] px-1.5 py-0 border-gray-300 dark:bg-gray-800 dark:text-gray-100 dark:border-gray-700">Banking</Badge>
-                        <Badge variant="outline" className="bg-red-100 text-red-700 text-[10px] px-1.5 py-0 border-red-300 dark:bg-red-900 dark:text-red-100 dark:border-red-800">Closing Soon</Badge>
+                        <div className="flex justify-between items-start mb-1.5">
+                          <Badge variant="outline" className="bg-gray-100/80 text-gray-700 text-[10px] px-2 py-0.5 border-gray-300/50 dark:bg-gray-800/50 dark:text-gray-100 dark:border-gray-700/50 backdrop-blur-sm">Banking</Badge>
+                          <Badge variant="outline" className="bg-red-100/80 text-red-700 text-[10px] px-2 py-0.5 border-red-300/50 dark:bg-red-900/50 dark:text-red-100 dark:border-red-800/50 backdrop-blur-sm">Closing Soon</Badge>
                       </div>
                       <div className="font-medium text-xs hover:text-red-600 transition-colors dark:text-gray-100 dark:hover:text-red-400">IBPS Clerk 2024</div>
-                      <div className="text-[10px] text-gray-500 dark:text-gray-400 mt-0.5">Released: 01 Feb 2025</div>
-                      <div className="text-[10px] text-red-600 font-medium mt-0.5 dark:text-red-400">Cutoff: 80%</div>
+                        <div className="text-[10px] text-gray-500 dark:text-gray-400 mt-1">Released: 01 Feb 2025</div>
+                        <div className="text-[10px] text-red-600 font-medium mt-1 dark:text-red-400">Cutoff: 80%</div>
                     </Link>
                   </div>
-                  <div className="bg-white dark:bg-muted/30 border border-gray-200 rounded-lg p-2 transition-all hover:border-red-500 hover:shadow-sm dark:border-gray-800 dark:hover:border-red-600 hover:scale-[1.02]">
+                    <div className="bg-white/50 dark:bg-muted/50 backdrop-blur-sm border border-gray-200/50 dark:border-gray-800/50 rounded-lg p-2.5 transition-all hover:border-red-500/50 hover:shadow-md dark:hover:border-red-600/50 hover:scale-[1.02]">
                     <Link href="#" className="block">
-                      <div className="flex justify-between items-start mb-1">
-                        <Badge variant="outline" className="bg-gray-100 text-gray-700 text-[10px] px-1.5 py-0 border-gray-300 dark:bg-gray-800 dark:text-gray-100 dark:border-gray-700">Railway</Badge>
-                        <Badge variant="outline" className="bg-green-100 text-green-700 text-[10px] px-1.5 py-0 border-green-300 dark:bg-green-900 dark:text-green-100 dark:border-green-800">New</Badge>
+                        <div className="flex justify-between items-start mb-1.5">
+                          <Badge variant="outline" className="bg-gray-100/80 text-gray-700 text-[10px] px-2 py-0.5 border-gray-300/50 dark:bg-gray-800/50 dark:text-gray-100 dark:border-gray-700/50 backdrop-blur-sm">Railway</Badge>
+                          <Badge variant="outline" className="bg-green-100/80 text-green-700 text-[10px] px-2 py-0.5 border-green-300/50 dark:bg-green-900/50 dark:text-green-100 dark:border-green-800/50 backdrop-blur-sm">New</Badge>
                       </div>
                       <div className="font-medium text-xs hover:text-red-600 transition-colors dark:text-gray-100 dark:hover:text-red-400">RRB NTPC 2024</div>
-                      <div className="text-[10px] text-gray-500 dark:text-gray-400 mt-0.5">Released: 28 Jan 2025</div>
-                      <div className="text-[10px] text-red-600 font-medium mt-0.5 dark:text-red-400">Cutoff: 75%</div>
+                        <div className="text-[10px] text-gray-500 dark:text-gray-400 mt-1">Released: 28 Jan 2025</div>
+                        <div className="text-[10px] text-red-600 font-medium mt-1 dark:text-red-400">Cutoff: 75%</div>
                     </Link>
                   </div>
                 </div>
-                <Button variant="outline" className="w-full mt-2 h-7 text-xs hover:bg-red-600 hover:text-white transition-colors border-gray-300 dark:border-gray-700 dark:bg-muted/30 dark:text-gray-100 dark:hover:bg-red-800 dark:hover:text-white" asChild>
+                  <Button variant="outline" className="w-full mt-3 h-8 text-xs hover:bg-red-600 hover:text-white transition-colors border-gray-300 dark:border-gray-700 dark:bg-muted/30 dark:text-gray-100 dark:hover:bg-red-800 dark:hover:text-white" asChild>
                   <Link href="/results">View All Results</Link>
                 </Button>
               </CardContent>
             </Card>
+            </div>
 
             {/* Answer Keys */}
-            <Card className="transition-all hover:shadow-lg border-gray-200 dark:border-gray-800 dark:bg-muted/30 hover:border-red-200 dark:hover:border-red-800">
-              <CardHeader className="bg-gradient-to-r from-red-600 to-red-700 text-white rounded-t-lg p-2 dark:bg-red-800">
-                <CardTitle className="flex items-center text-sm font-bold">Answer Keys</CardTitle>
+            <div className="group relative">
+              <div className="absolute -inset-0.5 bg-gradient-to-r from-red-600 to-red-700 rounded-lg blur opacity-25 group-hover:opacity-75 transition duration-1000 group-hover:duration-200"></div>
+              <Card className="relative bg-white/80 dark:bg-muted/30 backdrop-blur-sm border-0 shadow-lg hover:shadow-xl transition-all duration-300 group-hover:scale-[1.02]">
+                <CardHeader className="bg-gradient-to-r from-red-600 to-red-700 text-white rounded-t-lg p-3 dark:bg-red-800">
+                  <CardTitle className="flex items-center justify-between">
+                    <span className="text-base font-bold">Answer Keys</span>
+                    <span className="text-xs bg-white/20 px-2 py-1 rounded-full">New Updates</span>
+                  </CardTitle>
               </CardHeader>
-              <CardContent className="pt-2 px-1.5">
-                <div className="grid grid-cols-2 gap-1.5">
-                  <div className="bg-white dark:bg-muted/30 border border-gray-200 rounded-lg p-2 transition-all hover:border-red-500 hover:shadow-sm dark:border-gray-800 dark:hover:border-red-600 hover:scale-[1.02]">
+                <CardContent className="pt-3 px-2">
+                  <div className="grid grid-cols-2 gap-2">
+                    <div className="bg-white/50 dark:bg-muted/50 backdrop-blur-sm border border-gray-200/50 dark:border-gray-800/50 rounded-lg p-2.5 transition-all hover:border-red-500/50 hover:shadow-md dark:hover:border-red-600/50 hover:scale-[1.02]">
                     <Link href="#" className="block">
-                      <div className="flex justify-between items-start mb-1">
-                        <Badge variant="outline" className="bg-gray-100 text-gray-700 text-[10px] px-1.5 py-0 border-gray-300 dark:bg-gray-800 dark:text-gray-100 dark:border-gray-700">SSC</Badge>
-                        <Badge variant="outline" className="bg-red-100 text-red-700 text-[10px] px-1.5 py-0 border-red-300 dark:bg-red-900 dark:text-red-100 dark:border-red-800">Closing Soon</Badge>
+                        <div className="flex justify-between items-start mb-1.5">
+                          <Badge variant="outline" className="bg-gray-100/80 text-gray-700 text-[10px] px-2 py-0.5 border-gray-300/50 dark:bg-gray-800/50 dark:text-gray-100 dark:border-gray-700/50 backdrop-blur-sm">SSC</Badge>
+                          <Badge variant="outline" className="bg-red-100/80 text-red-700 text-[10px] px-2 py-0.5 border-red-300/50 dark:bg-red-900/50 dark:text-red-100 dark:border-red-800/50 backdrop-blur-sm">Closing Soon</Badge>
                       </div>
                       <div className="font-medium text-xs hover:text-red-600 transition-colors dark:text-gray-100 dark:hover:text-red-400">SSC CGL 2024</div>
-                      <div className="text-[10px] text-gray-500 dark:text-gray-400 mt-0.5">Released: 28 Feb 2025</div>
-                      <div className="text-[10px] text-red-600 font-medium mt-0.5 dark:text-red-400">Objection: 05 Mar 2025</div>
+                        <div className="text-[10px] text-gray-500 dark:text-gray-400 mt-1">Released: 28 Feb 2025</div>
+                        <div className="text-[10px] text-red-600 font-medium mt-1 dark:text-red-400">Objection: 05 Mar 2025</div>
                     </Link>
                   </div>
-                  <div className="bg-white dark:bg-muted/30 border border-gray-200 rounded-lg p-2 transition-all hover:border-red-500 hover:shadow-sm dark:border-gray-800 dark:hover:border-red-600 hover:scale-[1.02]">
+                    <div className="bg-white/50 dark:bg-muted/50 backdrop-blur-sm border border-gray-200/50 dark:border-gray-800/50 rounded-lg p-2.5 transition-all hover:border-red-500/50 hover:shadow-md dark:hover:border-red-600/50 hover:scale-[1.02]">
                     <Link href="#" className="block">
-                      <div className="flex justify-between items-start mb-1">
-                        <Badge variant="outline" className="bg-gray-100 text-gray-700 text-[10px] px-1.5 py-0 border-gray-300 dark:bg-gray-800 dark:text-gray-100 dark:border-gray-700">Banking</Badge>
-                        <Badge variant="outline" className="bg-green-100 text-green-700 text-[10px] px-1.5 py-0 border-green-300 dark:bg-green-900 dark:text-green-100 dark:border-green-800">New</Badge>
+                        <div className="flex justify-between items-start mb-1.5">
+                          <Badge variant="outline" className="bg-gray-100/80 text-gray-700 text-[10px] px-2 py-0.5 border-gray-300/50 dark:bg-gray-800/50 dark:text-gray-100 dark:border-gray-700/50 backdrop-blur-sm">Banking</Badge>
+                          <Badge variant="outline" className="bg-green-100/80 text-green-700 text-[10px] px-2 py-0.5 border-green-300/50 dark:bg-green-900/50 dark:text-green-100 dark:border-green-800/50 backdrop-blur-sm">New</Badge>
                       </div>
                       <div className="font-medium text-xs hover:text-red-600 transition-colors dark:text-gray-100 dark:hover:text-red-400">IBPS PO 2024</div>
-                      <div className="text-[10px] text-gray-500 dark:text-gray-400 mt-0.5">Released: 25 Feb 2025</div>
-                      <div className="text-[10px] text-red-600 font-medium mt-0.5 dark:text-red-400">Objection: 02 Mar 2025</div>
+                        <div className="text-[10px] text-gray-500 dark:text-gray-400 mt-1">Released: 25 Feb 2025</div>
+                        <div className="text-[10px] text-red-600 font-medium mt-1 dark:text-red-400">Objection: 02 Mar 2025</div>
                     </Link>
                   </div>
-                  <div className="bg-white dark:bg-muted/30 border border-gray-200 rounded-lg p-2 transition-all hover:border-red-500 hover:shadow-sm dark:border-gray-800 dark:hover:border-red-600 hover:scale-[1.02]">
+                    <div className="bg-white/50 dark:bg-muted/50 backdrop-blur-sm border border-gray-200/50 dark:border-gray-800/50 rounded-lg p-2.5 transition-all hover:border-red-500/50 hover:shadow-md dark:hover:border-red-600/50 hover:scale-[1.02]">
                     <Link href="#" className="block">
-                      <div className="flex justify-between items-start mb-1">
-                        <Badge variant="outline" className="bg-gray-100 text-gray-700 text-[10px] px-1.5 py-0 border-gray-300 dark:bg-gray-800 dark:text-gray-100 dark:border-gray-700">Railway</Badge>
-                        <Badge variant="outline" className="bg-green-100 text-green-700 text-[10px] px-1.5 py-0 border-green-300 dark:bg-green-900 dark:text-green-100 dark:border-green-800">New</Badge>
+                        <div className="flex justify-between items-start mb-1.5">
+                          <Badge variant="outline" className="bg-gray-100/80 text-gray-700 text-[10px] px-2 py-0.5 border-gray-300/50 dark:bg-gray-800/50 dark:text-gray-100 dark:border-gray-700/50 backdrop-blur-sm">Railway</Badge>
+                          <Badge variant="outline" className="bg-green-100/80 text-green-700 text-[10px] px-2 py-0.5 border-green-300/50 dark:bg-green-900/50 dark:text-green-100 dark:border-green-800/50 backdrop-blur-sm">New</Badge>
                       </div>
                       <div className="font-medium text-xs hover:text-red-600 transition-colors dark:text-gray-100 dark:hover:text-red-400">RRB NTPC 2024</div>
-                      <div className="text-[10px] text-gray-500 dark:text-gray-400 mt-0.5">Released: 20 Feb 2025</div>
-                      <div className="text-[10px] text-red-600 font-medium mt-0.5 dark:text-red-400">Objection: 27 Feb 2025</div>
+                        <div className="text-[10px] text-gray-500 dark:text-gray-400 mt-1">Released: 20 Feb 2025</div>
+                        <div className="text-[10px] text-red-600 font-medium mt-1 dark:text-red-400">Objection: 27 Feb 2025</div>
                     </Link>
                   </div>
-                  <div className="bg-white dark:bg-muted/30 border border-gray-200 rounded-lg p-2 transition-all hover:border-red-500 hover:shadow-sm dark:border-gray-800 dark:hover:border-red-600 hover:scale-[1.02]">
+                    <div className="bg-white/50 dark:bg-muted/50 backdrop-blur-sm border border-gray-200/50 dark:border-gray-800/50 rounded-lg p-2.5 transition-all hover:border-red-500/50 hover:shadow-md dark:hover:border-red-600/50 hover:scale-[1.02]">
                     <Link href="#" className="block">
-                      <div className="flex justify-between items-start mb-1">
-                        <Badge variant="outline" className="bg-gray-100 text-gray-700 text-[10px] px-1.5 py-0 border-gray-300 dark:bg-gray-800 dark:text-gray-100 dark:border-gray-700">Banking</Badge>
-                        <Badge variant="outline" className="bg-red-100 text-red-700 text-[10px] px-1.5 py-0 border-red-300 dark:bg-red-900 dark:text-red-100 dark:border-red-800">Closing Soon</Badge>
+                        <div className="flex justify-between items-start mb-1.5">
+                          <Badge variant="outline" className="bg-gray-100/80 text-gray-700 text-[10px] px-2 py-0.5 border-gray-300/50 dark:bg-gray-800/50 dark:text-gray-100 dark:border-gray-700/50 backdrop-blur-sm">Banking</Badge>
+                          <Badge variant="outline" className="bg-red-100/80 text-red-700 text-[10px] px-2 py-0.5 border-red-300/50 dark:bg-red-900/50 dark:text-red-100 dark:border-red-800/50 backdrop-blur-sm">Closing Soon</Badge>
                       </div>
                       <div className="font-medium text-xs hover:text-red-600 transition-colors dark:text-gray-100 dark:hover:text-red-400">SBI Clerk 2024</div>
-                      <div className="text-[10px] text-gray-500 dark:text-gray-400 mt-0.5">Released: 15 Feb 2025</div>
-                      <div className="text-[10px] text-red-600 font-medium mt-0.5 dark:text-red-400">Objection: 22 Feb 2025</div>
+                        <div className="text-[10px] text-gray-500 dark:text-gray-400 mt-1">Released: 15 Feb 2025</div>
+                        <div className="text-[10px] text-red-600 font-medium mt-1 dark:text-red-400">Objection: 22 Feb 2025</div>
                     </Link>
                   </div>
                 </div>
-                <Button variant="outline" className="w-full mt-2 h-7 text-xs hover:bg-red-600 hover:text-white transition-colors border-gray-300 dark:border-gray-700 dark:bg-muted/30 dark:text-gray-100 dark:hover:bg-red-800 dark:hover:text-white" asChild>
+                  <Button variant="outline" className="w-full mt-3 h-8 text-xs hover:bg-red-600 hover:text-white transition-colors border-gray-300 dark:border-gray-700 dark:bg-muted/30 dark:text-gray-100 dark:hover:bg-red-800 dark:hover:text-white" asChild>
                   <Link href="/answer-key">View All Answer Keys</Link>
                 </Button>
               </CardContent>
             </Card>
+            </div>
           </div>
         </div>
       </section>

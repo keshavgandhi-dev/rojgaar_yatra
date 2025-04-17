@@ -17,9 +17,9 @@ export function Logo({ showAdmin = false }: LogoProps) {
           priority
         />
       </div>
-      <span className="text-xl font-bold text-red-600 ml-2">Rojgaar</span>
-      <span className="text-xl font-bold">Yatra</span>
-      <span className="text-xl font-bold text-red-600">.com</span>
+      <span className="text-xl font-bold sm:text-red-600 text-white ml-2">Rojgaar</span>
+      <span className="text-xl font-bold sm:text-inherit text-white">Yatra</span>
+      <span className="text-xl font-bold sm:text-red-600 text-white">.com</span>
       {showAdmin && <span className="ml-2 text-xs bg-red-600 text-white px-2 py-0.5 rounded">Admin</span>}
     </Link>
   )

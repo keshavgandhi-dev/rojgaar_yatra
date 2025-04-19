@@ -2,92 +2,106 @@
 
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { BarChart3, Briefcase, FileText, Home, LogOut, Settings, Users } from "lucide-react"
 import { cn } from "@/lib/utils"
-import { Button } from "@/components/ui/button"
+import {
+  LayoutDashboard,
+  Briefcase,
+  FileText,
+  Users,
+  Settings,
+  SquareUser,
+  TicketCheck,
+  Files,
+} from "lucide-react"
 
 export function AdminSidebar() {
   const pathname = usePathname()
-
-  const isActive = (path: string) => {
-    return pathname === path || pathname.startsWith(path + "/")
-  }
-
+  
   const links = [
     {
-      name: "Dashboard",
+      title: "Dashboard",
       href: "/admin",
-      icon: Home,
+      icon: LayoutDashboard,
     },
     {
-      name: "Manage Jobs",
+      title: "Manage Jobs",
       href: "/admin/jobs",
       icon: Briefcase,
     },
     {
-      name: "Applications",
+      title: "Applications",
       href: "/admin/applications",
       icon: FileText,
     },
     {
-      name: "Manage Users",
+      title: "Users",
       href: "/admin/users",
       icon: Users,
     },
     {
-      name: "Admit Card",
+      title: "Admit Cards",
       href: "/admin/admit-card",
-      icon: FileText,
+      icon: TicketCheck,
     },
     {
-      name: "Upload Results",
+      title: "Documents",
+      href: "/admin/documents",
+      icon: Files,
+    },
+    {
+      title: "Results",
       href: "/admin/results",
       icon: FileText,
     },
     {
-      name: "Upload Documents",
-      href: "/admin/documents",
-      icon: FileText,
-    },
-    {
-      name: "Settings",
+      title: "Settings",
       href: "/admin/settings",
       icon: Settings,
     },
   ]
 
   return (
-    <div className="hidden md:flex w-52 flex-col border-r bg-muted/30 h-screen sticky top-0">
+    <div className="w-[240px] lg:w-[280px] h-screen border-r overflow-y-auto bg-background">
       <div className="flex flex-col h-full">
-        <nav className="flex-1 p-3 space-y-1">
-          {links.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              className={cn(
-                "flex items-center gap-3 px-3 py-2 rounded-md text-sm transition-colors",
-                isActive(link.href) ? "bg-red-600 text-white" : "hover:bg-muted",
-              )}
-            >
-              <link.icon className="h-5 w-5" />
-              {link.name}
-            </Link>
-          ))}
-        </nav>
+        <div className="h-14 flex items-center border-b px-4">
+          <Link href="/admin" className="flex items-center space-x-1">
+            <span className="text-xl font-bold text-red-600">Rojgaar</span>
+            <span className="text-xl font-bold">Yatra</span>
+            <span className="text-xl font-bold text-red-600">.com</span>
+            <span className="text-xl font-bold text-foreground ml-1">Admin</span>
+          </Link>
+        </div>
 
-        <div className="p-3 border-t">
-          <Button variant="ghost" className="w-full justify-start text-sm" asChild>
-            <Link href="/">
-              <Home className="h-5 w-5 mr-2" />
-              Back to Site
-            </Link>
-          </Button>
-          <Button variant="ghost" className="w-full justify-start text-sm mt-2" asChild>
-            <Link href="/auth/signin">
-              <LogOut className="h-5 w-5 mr-2" />
-              Sign Out
-            </Link>
-          </Button>
+        <div className="flex-1 py-4 px-3">
+          <div className="space-y-1">
+            {links.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                className={cn(
+                  "flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium transition-colors",
+                  pathname === link.href || pathname.startsWith(link.href + "/")
+                    ? "bg-accent text-accent-foreground"
+                    : "hover:bg-accent/50 hover:text-accent-foreground"
+                )}
+              >
+                <link.icon className="h-4 w-4" />
+                <span>{link.title}</span>
+              </Link>
+            ))}
+          </div>
+        </div>
+
+        <div className="p-4 border-t">
+          <div className="flex items-center gap-3">
+            <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center">
+              <SquareUser className="h-4 w-4 text-primary" />
+            </div>
+            <div>
+              <p className="text-sm font-medium">Admin User</p>
+              <p className="text-xs text-muted-foreground">admin@rojgaaryatra.com</p>
+            </div>
+          </div>
         </div>
       </div>
     </div>

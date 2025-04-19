@@ -3,7 +3,7 @@
 import * as React from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { Menu, LogOut, Home, Briefcase, FileText, Users, BarChart3, Settings } from "lucide-react"
+import { Menu, LogOut, Home, Briefcase, FileText, Users, Settings, TicketCheck, Files } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
@@ -23,7 +23,7 @@ export function AdminMobileNav() {
       icon: Home,
     },
     {
-      name: "Jobs",
+      name: "Manage Jobs",
       href: "/admin/jobs",
       icon: Briefcase,
     },
@@ -38,9 +38,19 @@ export function AdminMobileNav() {
       icon: Users,
     },
     {
-      name: "Analytics",
-      href: "/admin/analytics",
-      icon: BarChart3,
+      name: "Admit Cards",
+      href: "/admin/admit-card",
+      icon: TicketCheck,
+    },
+    {
+      name: "Documents",
+      href: "/admin/documents",
+      icon: Files,
+    },
+    {
+      name: "Results",
+      href: "/admin/results",
+      icon: FileText,
     },
     {
       name: "Settings",

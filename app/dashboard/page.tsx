@@ -1,3 +1,6 @@
+"use client"
+
+import { useState, useEffect } from "react"
 import Link from "next/link"
 import {
   Bell,
@@ -14,6 +17,9 @@ import {
   BookOpen,
   Award,
   ArrowRight,
+  MapPin,
+  DollarSign,
+  Building2,
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
@@ -23,7 +29,45 @@ import { Progress } from "@/components/ui/progress"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 
+// Mock data - replace with actual API calls
+const mockJobs = [
+  {
+    id: 1,
+    title: "Software Engineer",
+    company: "Tech Solutions Inc.",
+    location: "Bangalore",
+    salary: "₹8L - ₹12L",
+    type: "Full-time",
+    posted: "2 days ago",
+    skills: ["React", "Node.js", "MongoDB"],
+  },
+  {
+    id: 2,
+    title: "Data Scientist",
+    company: "Analytics Pro",
+    location: "Hyderabad",
+    salary: "₹10L - ₹15L",
+    type: "Full-time",
+    posted: "1 day ago",
+    skills: ["Python", "Machine Learning", "SQL"],
+  },
+  // Add more mock jobs
+]
+
+const mockStats = {
+  applications: 12,
+  interviews: 3,
+  savedJobs: 8,
+}
+
 export default function DashboardPage() {
+  const [isLoading, setIsLoading] = useState(true)
+
+  useEffect(() => {
+    // Simulate API loading
+    setTimeout(() => setIsLoading(false), 1000)
+  }, [])
+
   return (
     <div className="flex min-h-screen flex-col">
       <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -113,41 +157,36 @@ export default function DashboardPage() {
               <p className="text-muted-foreground">Here's what's happening with your job applications.</p>
             </div>
 
-            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+            {/* Stats Overview */}
+            <div className="grid gap-4 md:grid-cols-3">
               <Card>
-                <CardContent className="p-6">
-                  <div className="flex items-center gap-2">
-                    <Briefcase className="h-5 w-5 text-muted-foreground" />
-                    <span className="text-sm font-medium">Total Applications</span>
-                  </div>
-                  <div className="mt-3 text-3xl font-bold">12</div>
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                  <CardTitle className="text-sm font-medium">Applications</CardTitle>
+                  <Briefcase className="h-4 w-4 text-muted-foreground" />
+                </CardHeader>
+                <CardContent>
+                  <div className="text-2xl font-bold">{mockStats.applications}</div>
+                  <p className="text-xs text-muted-foreground">Active applications</p>
                 </CardContent>
               </Card>
               <Card>
-                <CardContent className="p-6">
-                  <div className="flex items-center gap-2">
-                    <Clock className="h-5 w-5 text-muted-foreground" />
-                    <span className="text-sm font-medium">Pending</span>
-                  </div>
-                  <div className="mt-3 text-3xl font-bold">3</div>
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                  <CardTitle className="text-sm font-medium">Interviews</CardTitle>
+                  <Calendar className="h-4 w-4 text-muted-foreground" />
+                </CardHeader>
+                <CardContent>
+                  <div className="text-2xl font-bold">{mockStats.interviews}</div>
+                  <p className="text-xs text-muted-foreground">Upcoming interviews</p>
                 </CardContent>
               </Card>
               <Card>
-                <CardContent className="p-6">
-                  <div className="flex items-center gap-2">
-                    <CheckCircle className="h-5 w-5 text-muted-foreground" />
-                    <span className="text-sm font-medium">Shortlisted</span>
-                  </div>
-                  <div className="mt-3 text-3xl font-bold">7</div>
-                </CardContent>
-              </Card>
-              <Card>
-                <CardContent className="p-6">
-                  <div className="flex items-center gap-2">
-                    <X className="h-5 w-5 text-muted-foreground" />
-                    <span className="text-sm font-medium">Rejected</span>
-                  </div>
-                  <div className="mt-3 text-3xl font-bold">2</div>
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                  <CardTitle className="text-sm font-medium">Saved Jobs</CardTitle>
+                  <Clock className="h-4 w-4 text-muted-foreground" />
+                </CardHeader>
+                <CardContent>
+                  <div className="text-2xl font-bold">{mockStats.savedJobs}</div>
+                  <p className="text-xs text-muted-foreground">Jobs saved for later</p>
                 </CardContent>
               </Card>
             </div>
@@ -288,22 +327,46 @@ export default function DashboardPage() {
               <Card>
                 <CardHeader>
                   <CardTitle>Recommended Jobs</CardTitle>
-                  <CardDescription>Based on your profile and preferences</CardDescription>
+                  <CardDescription>Jobs matching your profile and preferences</CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-4">
-                  {[1, 2, 3].map((i) => (
-                    <div key={i} className="flex items-start justify-between border-b pb-4 last:border-0 last:pb-0">
-                      <div>
-                        <h4 className="font-medium">{["RBI Grade B 2025", "SBI PO 2025", "UPSC CAPF 2025"][i - 1]}</h4>
-                        <p className="text-sm text-muted-foreground">
-                          Last Date: {["22 Apr", "15 May", "30 May"][i - 1]} 2025
-                        </p>
+                  {mockJobs.map((job) => (
+                    <div
+                      key={job.id}
+                      className="flex flex-col space-y-4 rounded-lg border p-4 hover:bg-gray-50 md:flex-row md:items-center md:justify-between md:space-y-0"
+                    >
+                      <div className="space-y-1">
+                        <div className="flex items-center gap-2">
+                          <h3 className="font-semibold">{job.title}</h3>
+                          <Badge variant="secondary">{job.type}</Badge>
+                        </div>
+                        <div className="flex flex-wrap items-center gap-2 text-sm text-muted-foreground">
+                          <div className="flex items-center gap-1">
+                            <Building2 className="h-4 w-4" />
+                            {job.company}
+                          </div>
+                          <div className="flex items-center gap-1">
+                            <MapPin className="h-4 w-4" />
+                            {job.location}
+                          </div>
+                          <div className="flex items-center gap-1">
+                            <DollarSign className="h-4 w-4" />
+                            {job.salary}
+                          </div>
+                          <div className="flex items-center gap-1">
+                            <Clock className="h-4 w-4" />
+                            {job.posted}
+                          </div>
+                        </div>
+                        <div className="flex flex-wrap gap-2">
+                          {job.skills.map((skill) => (
+                            <Badge key={skill} variant="outline">
+                              {skill}
+                            </Badge>
+                          ))}
+                        </div>
                       </div>
-                      <Button variant="ghost" size="sm" className="h-8 w-8 p-0" asChild>
-                        <Link href={`/jobs/${i + 3}`}>
-                          <ArrowRight className="h-4 w-4" />
-                        </Link>
-                      </Button>
+                      <Button>Apply Now</Button>
                     </div>
                   ))}
                 </CardContent>

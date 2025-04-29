@@ -1,192 +1,158 @@
-import Link from "next/link"
-import { CalendarIcon, CheckCircle2, Clock, FileText, XCircle } from "lucide-react"
+"use client"
+
+import { useState, ReactNode } from "react"
 import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { Briefcase, MapPin, DollarSign, Clock, Building2, CheckCircle, XCircle, Clock as ClockIcon } from "lucide-react"
+import {
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
+} from "@/components/ui/tabs"
+
+type ApplicationStatus = "Applied" | "Interview" | "Rejected"
+
+interface Application {
+  id: string
+  job: {
+    id: string
+    title: string
+    company: string
+    location: string
+    salary: string
+  }
+  status: ApplicationStatus
+  appliedAt: string
+  lastUpdated: string
+  nextSteps: string
+}
+
+const statusIcons: Record<ApplicationStatus, ReactNode> = {
+  Applied: <ClockIcon className="h-4 w-4" />,
+  Interview: <CheckCircle className="h-4 w-4" />,
+  Rejected: <XCircle className="h-4 w-4" />,
+}
+
+const statusColors: Record<ApplicationStatus, string> = {
+  Applied: "bg-yellow-100 text-yellow-800",
+  Interview: "bg-green-100 text-green-800",
+  Rejected: "bg-red-100 text-red-800",
+}
+
+// Mock data - replace with actual API calls
+const mockApplications = [
+  {
+    id: "1",
+    job: {
+      id: "1",
+      title: "Software Engineer",
+      company: "Tech Solutions Inc.",
+      location: "Bangalore",
+      salary: "₹8L - ₹12L",
+    },
+    status: "Applied",
+    appliedAt: "2024-03-15",
+    lastUpdated: "2024-03-15",
+    nextSteps: "Awaiting response from employer",
+  },
+  {
+    id: "2",
+    job: {
+      id: "2",
+      title: "Data Scientist",
+      company: "Analytics Pro",
+      location: "Hyderabad",
+      salary: "₹10L - ₹15L",
+    },
+    status: "Interview",
+    appliedAt: "2024-03-10",
+    lastUpdated: "2024-03-18",
+    nextSteps: "Technical interview scheduled for March 25",
+  },
+  {
+    id: "3",
+    job: {
+      id: "3",
+      title: "Product Manager",
+      company: "Product Co",
+      location: "Mumbai",
+      salary: "₹15L - ₹20L",
+    },
+    status: "Rejected",
+    appliedAt: "2024-03-05",
+    lastUpdated: "2024-03-12",
+    nextSteps: "Application was not selected",
+  },
+]
 
 export default function ApplicationsPage() {
+  const [activeTab, setActiveTab] = useState("all")
+
+  const filteredApplications = mockApplications.filter((app) => {
+    if (activeTab === "all") return true
+    return app.status.toLowerCase() === activeTab
+  })
+
   return (
     <div className="space-y-6">
-      <div>
-        <h1 className="text-3xl font-bold tracking-tight">My Applications</h1>
-        <p className="text-muted-foreground">View and track all your job applications</p>
-      </div>
-
-      <Tabs defaultValue="all" className="w-full">
-        <TabsList className="grid w-full grid-cols-4">
+      <Tabs defaultValue="all" onValueChange={setActiveTab}>
+        <TabsList>
           <TabsTrigger value="all">All Applications</TabsTrigger>
-          <TabsTrigger value="pending">Pending</TabsTrigger>
-          <TabsTrigger value="shortlisted">Shortlisted</TabsTrigger>
+          <TabsTrigger value="applied">Applied</TabsTrigger>
+          <TabsTrigger value="interview">Interview</TabsTrigger>
           <TabsTrigger value="rejected">Rejected</TabsTrigger>
         </TabsList>
-        <TabsContent value="all" className="mt-6">
-          <div className="grid gap-6">
-            {applications.map((application) => (
-              <ApplicationCard key={application.id} application={application} />
+
+        <TabsContent value={activeTab}>
+          <div className="grid gap-4">
+            {filteredApplications.map((application) => (
+              <Card key={application.id} className="hover:bg-gray-50">
+                <CardContent className="p-6">
+                  <div className="flex flex-col space-y-4 md:flex-row md:items-center md:justify-between md:space-y-0">
+                    <div className="space-y-1">
+                      <div className="flex items-center gap-2">
+                        <h3 className="font-semibold">{application.job.title}</h3>
+                        <Badge
+                          className={`flex items-center gap-1 ${statusColors[application.status as ApplicationStatus]}`}
+                        >
+                          {statusIcons[application.status as ApplicationStatus]}
+                          {application.status}
+                        </Badge>
+                      </div>
+                      <div className="flex flex-wrap items-center gap-2 text-sm text-muted-foreground">
+                        <div className="flex items-center gap-1">
+                          <Building2 className="h-4 w-4" />
+                          {application.job.company}
+                        </div>
+                        <div className="flex items-center gap-1">
+                          <MapPin className="h-4 w-4" />
+                          {application.job.location}
+                        </div>
+                        <div className="flex items-center gap-1">
+                          <DollarSign className="h-4 w-4" />
+                          {application.job.salary}
+                        </div>
+                      </div>
+                      <div className="text-sm text-muted-foreground">
+                        <p>Applied on: {application.appliedAt}</p>
+                        <p>Last updated: {application.lastUpdated}</p>
+                        <p>Next steps: {application.nextSteps}</p>
+                      </div>
+                    </div>
+                    <div className="flex gap-2">
+                      <Button variant="outline">View Details</Button>
+                      <Button>Withdraw</Button>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
             ))}
-          </div>
-        </TabsContent>
-        <TabsContent value="pending" className="mt-6">
-          <div className="grid gap-6">
-            {applications
-              .filter((app) => app.status === "pending")
-              .map((application) => (
-                <ApplicationCard key={application.id} application={application} />
-              ))}
-          </div>
-        </TabsContent>
-        <TabsContent value="shortlisted" className="mt-6">
-          <div className="grid gap-6">
-            {applications
-              .filter((app) => app.status === "shortlisted")
-              .map((application) => (
-                <ApplicationCard key={application.id} application={application} />
-              ))}
-          </div>
-        </TabsContent>
-        <TabsContent value="rejected" className="mt-6">
-          <div className="grid gap-6">
-            {applications
-              .filter((app) => app.status === "rejected")
-              .map((application) => (
-                <ApplicationCard key={application.id} application={application} />
-              ))}
           </div>
         </TabsContent>
       </Tabs>
     </div>
   )
 }
-
-interface Application {
-  id: number
-  jobTitle: string
-  department: string
-  appliedDate: string
-  status: "pending" | "shortlisted" | "rejected"
-  nextSteps?: string
-  interviewDate?: string
-}
-
-function ApplicationCard({ application }: { application: Application }) {
-  return (
-    <Card>
-      <CardHeader className="pb-2">
-        <div className="flex justify-between items-start">
-          <div>
-            <CardTitle className="text-xl">{application.jobTitle}</CardTitle>
-            <CardDescription>{application.department}</CardDescription>
-          </div>
-          <StatusBadge status={application.status} />
-        </div>
-      </CardHeader>
-      <CardContent>
-        <div className="grid gap-4">
-          <div className="flex items-center text-sm">
-            <CalendarIcon className="mr-2 h-4 w-4 opacity-70" />
-            <span>Applied on {application.appliedDate}</span>
-          </div>
-
-          {application.status === "shortlisted" && application.interviewDate && (
-            <div className="flex items-center text-sm text-green-600">
-              <Clock className="mr-2 h-4 w-4" />
-              <span>Interview scheduled on {application.interviewDate}</span>
-            </div>
-          )}
-
-          {application.nextSteps && (
-            <div className="mt-2 text-sm border-l-2 border-red-600 pl-3">
-              <p className="font-medium">Next Steps:</p>
-              <p>{application.nextSteps}</p>
-            </div>
-          )}
-
-          <div className="flex justify-between items-center mt-2">
-            <Button variant="outline" size="sm" asChild>
-              <Link href={`/dashboard/applications/${application.id}`}>
-                <FileText className="mr-2 h-4 w-4" />
-                View Details
-              </Link>
-            </Button>
-
-            {application.status === "pending" && (
-              <Button variant="ghost" size="sm" className="text-red-600">
-                Withdraw Application
-              </Button>
-            )}
-          </div>
-        </div>
-      </CardContent>
-    </Card>
-  )
-}
-
-function StatusBadge({ status }: { status: Application["status"] }) {
-  if (status === "pending") {
-    return (
-      <Badge variant="outline" className="flex items-center gap-1">
-        <Clock className="h-3 w-3" />
-        Under Review
-      </Badge>
-    )
-  }
-
-  if (status === "shortlisted") {
-    return (
-      <Badge className="bg-green-500 flex items-center gap-1">
-        <CheckCircle2 className="h-3 w-3" />
-        Shortlisted
-      </Badge>
-    )
-  }
-
-  return (
-    <Badge variant="destructive" className="flex items-center gap-1">
-      <XCircle className="h-3 w-3" />
-      Not Selected
-    </Badge>
-  )
-}
-
-// Sample data
-const applications: Application[] = [
-  {
-    id: 1,
-    jobTitle: "UPSC Civil Services 2025",
-    department: "Union Public Service Commission",
-    appliedDate: "10 Feb 2025",
-    status: "pending",
-    nextSteps: "Your application is under initial screening. You will be notified about the prelims exam date soon.",
-  },
-  {
-    id: 2,
-    jobTitle: "SSC CGL 2025",
-    department: "Staff Selection Commission",
-    appliedDate: "15 Jan 2025",
-    status: "shortlisted",
-    interviewDate: "25 Mar 2025",
-    nextSteps:
-      "Congratulations! You have been shortlisted for the interview round. Please check your email for the interview details.",
-  },
-  {
-    id: 3,
-    jobTitle: "IBPS PO 2024",
-    department: "Institute of Banking Personnel Selection",
-    appliedDate: "05 Dec 2024",
-    status: "rejected",
-    nextSteps:
-      "We regret to inform you that your application has not been selected for the next round. We encourage you to apply for future openings.",
-  },
-  {
-    id: 4,
-    jobTitle: "RRB NTPC 2024",
-    department: "Railway Recruitment Board",
-    appliedDate: "20 Nov 2024",
-    status: "shortlisted",
-    interviewDate: "15 Feb 2025",
-    nextSteps:
-      "You have been shortlisted for the document verification round. Please bring all original documents as mentioned in the email.",
-  },
-]
 
